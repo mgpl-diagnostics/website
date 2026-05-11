@@ -1,7 +1,7 @@
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
-import BannerStrip from '@/components/BannerStrip';
-// import TrustStrip from '@/components/TrustStrip';
+// import BannerStrip from '@/components/BannerStrip';
+import TrustStrip from '@/components/TrustStrip';
 import ServicesGrid from '@/components/ServicesGrid';
 import WhyChoose from '@/components/WhyChoose';
 import HomeCollection from '@/components/HomeCollection';
@@ -18,8 +18,8 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <BannerStrip />
-        {/* <TrustStrip /> */}
+        {/* <BannerStrip /> */}
+        <TrustStrip />
         <ServicesGrid />
         <WhyChoose />
         <HomeCollection />
