@@ -1,0 +1,53 @@
+{
+  "services": {
+    "sectionTag": "What We Offer",
+    "heading": "Diagnostic",
+    "headingAccent": "Services",
+    "subtext": "Every test we offer is conducted with precision equipment, expert oversight, and genuine care for your wellbeing.",
+    "viewAllLabel": "View All Tests & Packages",
+    "items": [
+      {
+        "icon": "TestTube2",
+        "title": "Blood Tests",
+        "description": "Complete blood count, biochemistry panels, and comprehensive metabolic profiles with precision analysis.",
+        "iconColor": "var(--saffron)",
+        "iconBg": "var(--saffron-muted)"
+      },
+      {
+        "icon": "HeartPulse",
+        "title": "Full Body Checkup",
+        "description": "Comprehensive wellness screening covering 60+ parameters — heart, liver, kidneys, and beyond.",
+        "iconColor": "var(--navy)",
+        "iconBg": "var(--navy-pale)"
+      },
+      {
+        "icon": "Activity",
+        "title": "Thyroid Profile",
+        "description": "Accurate TSH, T3, T4 and anti-TPO analysis with detailed expert interpretation and follow-up guidance.",
+        "iconColor": "var(--forest)",
+        "iconBg": "var(--forest-pale)"
+      },
+      {
+        "icon": "Droplets",
+        "title": "Diabetes Screening",
+        "description": "HbA1c, fasting glucose, insulin resistance panels — early detection saves lives and health complications.",
+        "iconColor": "var(--amber)",
+        "iconBg": "#FFF8E1"
+      },
+      {
+        "icon": "Home",
+        "title": "Home Collection",
+        "description": "Certified phlebotomists come to you. Book in minutes, sample collected at your door, reports online.",
+        "iconColor": "var(--saffron)",
+        "iconBg": "var(--saffron-muted)"
+      },
+      {
+        "icon": "Microscope",
+        "title": "Advanced Diagnostics",
+        "description": "Specialized genomic, immunology, and molecular testing for complex medical conditions.",
+        "iconColor": "var(--navy)",
+        "iconBg": "var(--navy-pale)"
+      }
+    ]
+  }
+}

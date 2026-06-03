@@ -1,0 +1,37 @@
+{
+  "footer": {
+    "emergencyText": "Urgent test needed? We're open 7 days a week.",
+    "emergencyCtaLabel": "Call",
+    "brandTagline": "Your family's trusted diagnostic partner — combining clinical precision with compassionate care since",
+    "copyrightSuffix": "MGPL Diagnostics — Maa Gayatri Path Lab. All rights reserved.",
+    "footerTagline": "Accurate diagnostics. Compassionate care.",
+    "columns": {
+      "services": {
+        "heading": "Services",
+        "links": [
+          { "label": "Blood Tests",          "href": "#services"        },
+          { "label": "Full Body Checkup",    "href": "#services"        },
+          { "label": "Thyroid Profile",      "href": "#services"        },
+          { "label": "Diabetes Screening",   "href": "#services"        },
+          { "label": "Home Collection",      "href": "#home-collection" },
+          { "label": "Advanced Diagnostics", "href": "#services"        }
+        ]
+      },
+      "information": {
+        "heading": "Information",
+        "links": [
+          { "label": "About MGPL",       "href": "#why-choose"      },
+          { "label": "Our Pathologists", "href": "#doctors"         },
+          { "label": "Test Categories",  "href": "#test-categories" },
+          { "label": "FAQs",             "href": "#faq"             },
+          { "label": "Privacy Policy",   "href": "#"                }
+        ]
+      }
+    },
+    "quickBook": {
+      "heading": "Quick Book",
+      "subtext": "Book a test online or schedule a home collection in under 2 minutes.",
+      "ctaLabel": "Book a Test"
+    }
+  }
+}

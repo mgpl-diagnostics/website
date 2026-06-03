@@ -1,0 +1,55 @@
+{
+  "whyChoose": {
+    "sectionTag": "Why Families Trust Us",
+    "headingLine1": "Precision.",
+    "headingLine2": "Compassion.",
+    "headingLine3": "Trust.",
+    "subtext": "For over a decade, MGPL Diagnostics has been the trusted health partner for thousands of families — combining clinical excellence with genuine warmth.",
+    "quote": "Diagnostics with a human touch, not just a machine.",
+    "quoteAttrib": "Our founding philosophy",
+    "features": [
+      {
+        "icon": "CheckCircle2",
+        "title": "Certified Accuracy",
+        "description": "Our reports are cross-verified by qualified pathologists — zero compromise on precision.",
+        "iconColor": "var(--forest)",
+        "iconBg": "var(--forest-pale)"
+      },
+      {
+        "icon": "Stethoscope",
+        "title": "Expert Pathologists",
+        "description": "A team of MD-qualified pathologists with 10–20 years of clinical experience.",
+        "iconColor": "var(--navy)",
+        "iconBg": "var(--navy-pale)"
+      },
+      {
+        "icon": "Microscope",
+        "title": "Modern Equipment",
+        "description": "State-of-the-art analysers from globally recognized medical technology brands.",
+        "iconColor": "var(--saffron)",
+        "iconBg": "var(--saffron-muted)"
+      },
+      {
+        "icon": "Zap",
+        "title": "Fast Turnaround",
+        "description": "Most routine tests delivered same day — within 4–6 hours from sample collection.",
+        "iconColor": "var(--amber)",
+        "iconBg": "#FFF8E1"
+      },
+      {
+        "icon": "HeartHandshake",
+        "title": "Patient-First Care",
+        "description": "Warm, empathetic service — from booking to report delivery, we're with your family.",
+        "iconColor": "var(--forest)",
+        "iconBg": "var(--forest-pale)"
+      },
+      {
+        "icon": "BadgeCheck",
+        "title": "Hygienic Standards",
+        "description": "Clinical-grade hygiene protocols: single-use supplies, sterilised environments.",
+        "iconColor": "var(--navy)",
+        "iconBg": "var(--navy-pale)"
+      }
+    ]
+  }
+}

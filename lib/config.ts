@@ -1,92 +1,112 @@
 // ─────────────────────────────────────────────────────────────
 //  MGPL Diagnostics — Site Configuration
-//  Edit this file to update contact info, links, and branding across
-//  the entire website. No component code needs to change.
+//
+//  Every JSON file is validated against its TypeScript interface
+//  (lib/types.ts) at compile time via the `satisfies` operator.
+//  If a field is missing or wrong type in a JSON, tsc will fail.
+//
+//  Content is split across focused files in lib/config/:
+//
+//    brand.json           → BrandConfig
+//    contact.json         → ContactConfig
+//    nav.json             → NavConfig
+//    hero.json            → HeroConfig
+//    metrics.json         → MetricsConfig
+//    services.json        → ServicesConfig
+//    why-choose.json      → WhyChooseConfig
+//    home-collection.json → HomeCollectionConfig
+//    catalogue.json       → CatalogueConfig
+//    testimonials.json    → TestimonialsConfig
+//    doctors.json         → DoctorsConfig
+//    faq.json             → FaqConfig
+//    footer.json          → FooterConfig
 // ─────────────────────────────────────────────────────────────
 
+import type {
+  BrandConfig,
+  ContactConfig,
+  NavConfig,
+  HeroConfig,
+  MetricsConfig,
+  ServicesConfig,
+  WhyChooseConfig,
+  HomeCollectionConfig,
+  CatalogueConfig,
+  TestimonialsConfig,
+  DoctorsConfig,
+  FaqConfig,
+  FooterConfig,
+  SiteConfig,
+} from './types';
+
+import _brand          from './config/brand.json';
+import _contact        from './config/contact.json';
+import _nav            from './config/nav.json';
+import _hero           from './config/hero.json';
+import _metrics        from './config/metrics.json';
+import _services       from './config/services.json';
+import _whyChoose      from './config/why-choose.json';
+import _homeCollection from './config/home-collection.json';
+import _catalogue      from './config/catalogue.json';
+import _testimonials   from './config/testimonials.json';
+import _doctors        from './config/doctors.json';
+import _faq            from './config/faq.json';
+import _footer         from './config/footer.json';
+
+// Validate each JSON slice against its interface at compile time.
+// `satisfies` keeps the literal types while enforcing the shape.
+const brand          = _brand          satisfies BrandConfig;
+const contact        = _contact        satisfies ContactConfig;
+const nav            = _nav            satisfies NavConfig;
+const hero           = _hero           satisfies HeroConfig;
+const metrics        = _metrics        satisfies MetricsConfig;
+const services       = _services       satisfies ServicesConfig;
+const whyChoose      = _whyChoose      satisfies WhyChooseConfig;
+const homeCollection = _homeCollection satisfies HomeCollectionConfig;
+const catalogue      = _catalogue      satisfies CatalogueConfig;
+const testimonials   = _testimonials   satisfies TestimonialsConfig;
+const doctors        = _doctors        satisfies DoctorsConfig;
+const faq            = _faq            satisfies FaqConfig;
+const footer         = _footer         satisfies FooterConfig;
+
+// Full typed config — spread from all validated slices.
+export const cfg: SiteConfig = {
+  ...brand,
+  ...contact,
+  ...nav,
+  ...hero,
+  ...metrics,
+  ...services,
+  ...whyChoose,
+  ...homeCollection,
+  ...catalogue,
+  ...testimonials,
+  ...doctors,
+  ...faq,
+  ...footer,
+};
+
+// Backward-compatible flat shape used by legacy components.
 export const siteConfig = {
-  // ── Brand ────────────────────────────────────────────────────
-  name: 'MGPL Diagnostics',
-  fullName: 'MGPL Diagnostics — Maa Gayatri Path Lab',
-  tagline: 'Accurate Diagnostics. Compassionate Care.',
-  subTagline: "Your family's trusted diagnostic partner.",
-  description:
-    'MGPL Diagnostics offers trusted pathology and diagnostic services: blood tests, full body checkups, thyroid profiles, diabetes screening, and home sample collection. NABL standard processes, expert pathologists, same-day reports.',
-  foundedYear: 2010,
+  name:        cfg.brand.name,
+  fullName:    cfg.brand.fullName,
+  tagline:     cfg.brand.tagline,
+  subTagline:  cfg.brand.subTagline,
+  description: cfg.brand.description,
+  foundedYear: cfg.brand.foundedYear,
 
-  // ── Logo & Banner (files go in /public/) ─────────────────────
-  logo: {
-    src: '/logo.png',
-    // Original dimensions for next/image optimisation
-    width: 1536,
-    height: 587,
-    // Rendered height in navbar (px) — width is calculated automatically
-    navbarHeight: 44,
-  },
-  banner: {
-    src: '/banner.png',
-    // Original dimensions for next/image optimisation
-    width: 1774,
-    height: 87,
-    alt: 'MGPL Diagnostics — Maa Gayatri Path Lab • Advanced Testing. Trusted Care.',
-  },
+  logo:       cfg.assets.logo,
+  banner:     cfg.assets.banner,
 
-  // ── Contact ──────────────────────────────────────────────────
-  phone: {
-    primary: '+91 98765 43210',       // ← Change to real number
-    primaryTel: 'tel:+919876543210',
-    secondary: '+91 98765 43211',     // ← Optional second line
-    secondaryTel: 'tel:+919876543211',
-    whatsapp: 'https://wa.me/919876543210', // ← WhatsApp click-to-chat
-  },
+  phone:      cfg.contact.phone,
+  email:      cfg.contact.email,
 
-  email: {
-    info: 'info@mgpldiagnostics.in',     // ← Change to real email
-    reports: 'reports@mgpldiagnostics.in', // for report queries
-  },
+  address:    cfg.address,
+  googleMaps: cfg.maps,
 
-  // ── Address ──────────────────────────────────────────────────
-  address: {
-    line1: '123 Medical Colony',          // ← Street address
-    line2: 'Near Civil Hospital',         // ← Landmark
-    city: 'Varanasi',
-    state: 'Uttar Pradesh',
-    pin: '221001',
-    full: '123 Medical Colony, Near Civil Hospital, Varanasi, UP 221001',
-  },
-
-  // ── Google Maps ──────────────────────────────────────────────
-  googleMaps: {
-    // Paste your "Share" link from Google Maps here
-    shareLink: 'https://maps.google.com/?q=MGPL+Diagnostics+Varanasi',
-    // Embed src for <iframe> (from "Embed a map" on Google Maps)
-    embedSrc:
-      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3606!2d83.0!3d25.3!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDE4JzAwLjAiTiA4M8KwMDAnMDAuMCJF!5e0!3m2!1sen!2sin!4v1234567890',
-  },
-
-  // ── Working Hours ─────────────────────────────────────────────
-  hours: {
-    display: 'Mon–Sun: 7:00 AM – 8:00 PM',
-    short: '7 AM – 8 PM, All Days',
-  },
-
-  // ── Social & Online Presence ──────────────────────────────────
-  social: {
-    website: 'https://mgpldiagnostics.in',
-    facebook: 'https://facebook.com/mgpldiagnostics',   // ← Update
-    instagram: 'https://instagram.com/mgpldiagnostics', // ← Update
-    youtube: 'https://youtube.com/@mgpldiagnostics',    // ← Update
-  },
-
-  // ── SEO ───────────────────────────────────────────────────────
-  seo: {
-    title: 'MGPL Diagnostics | Maa Gayatri Path Lab — Accurate Diagnostics, Compassionate Care',
-    description:
-      'MGPL Diagnostics offers trusted pathology and diagnostic services: blood tests, full body checkups, thyroid profiles, diabetes screening, and home sample collection. NABL standard processes, expert pathologists, same-day reports.',
-    keywords:
-      'MGPL Diagnostics, Maa Gayatri Path Lab, pathology lab, blood test, home collection, diagnostic center Varanasi',
-    locale: 'en_IN',
-  },
+  hours:      cfg.hours,
+  social:     cfg.social,
+  seo:        cfg.seo,
 } as const;
 
-export type SiteConfig = typeof siteConfig;
+export type { SiteConfig } from './types';

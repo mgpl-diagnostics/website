@@ -1,0 +1,8 @@
+{
+  "trustMetrics": [
+    { "icon": "Users",  "end": 50000, "suffix": "+",  "label": "Tests Conducted",   "sub": "Across all panels"     },
+    { "icon": "Award",  "end": 100,   "suffix": "%",  "label": "NABL Standards",    "sub": "Certified processes"   },
+    { "icon": "Clock",  "end": 6,     "suffix": "hr", "label": "Report Turnaround", "sub": "Same-day availability" },
+    { "icon": "Zap",    "end": 200,   "suffix": "+",  "label": "Test Panels",       "sub": "Tests & packages"      }
+  ]
+}

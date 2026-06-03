@@ -1,0 +1,41 @@
+{
+  "contact": {
+    "phone": {
+      "primary": "+91 98765 43210",
+      "primaryTel": "tel:+919876543210",
+      "secondary": "+91 98765 43211",
+      "secondaryTel": "tel:+919876543211",
+      "whatsapp": "https://wa.me/919876543210"
+    },
+    "email": {
+      "info": "info@mgpldiagnostics.in",
+      "reports": "reports@mgpldiagnostics.in"
+    }
+  },
+
+  "address": {
+    "line1": "123 Medical Colony",
+    "line2": "Near Civil Hospital",
+    "city": "Raipur",
+    "state": "Chhattisgarh",
+    "pin": "492001",
+    "full": "123 Medical Colony, Near Civil Hospital, Raipur, CG 492001"
+  },
+
+  "maps": {
+    "shareLink": "https://maps.google.com/?q=MGPL+Diagnostics+Raipur",
+    "embedSrc": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3606!2d81.6!3d21.2!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDEyJzAwLjAiTiA4McKwMzYnMDAuMCJF!5e0!3m2!1sen!2sin!4v1234567890"
+  },
+
+  "hours": {
+    "display": "Mon–Sun: 7:00 AM – 8:00 PM",
+    "short": "7 AM – 8 PM, All Days"
+  },
+
+  "social": {
+    "website": "https://mgpldiagnostics.in",
+    "facebook": "https://facebook.com/mgpldiagnostics",
+    "instagram": "https://instagram.com/mgpldiagnostics",
+    "youtube": "https://youtube.com/@mgpldiagnostics"
+  }
+}

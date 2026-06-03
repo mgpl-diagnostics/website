@@ -1,0 +1,52 @@
+{
+  "doctors": {
+    "sectionTag": "Expert Team",
+    "heading": "Led by",
+    "headingAccent": "Qualified Pathologists",
+    "subtext": "Every report you receive is reviewed and signed by a qualified MD/DNB pathologist — because your health deserves expertise, not just equipment.",
+    "stats": [
+      { "label": "MD/DNB Qualified", "value": "4+ Pathologists" },
+      { "label": "Lab Experience",   "value": "10+ Years (Avg)" },
+      { "label": "Reports Reviewed", "value": "50,000+"         },
+      { "label": "Specializations",  "value": "8 Disciplines"   }
+    ],
+    "items": [
+      {
+        "name": "Dr. Anjali Mishra",
+        "qualification": "MBBS, MD Pathology",
+        "specialization": "Clinical & Biochemical Pathology",
+        "experience": "14 Years",
+        "initials": "AM",
+        "color": "var(--navy)",
+        "bg": "var(--navy-pale)"
+      },
+      {
+        "name": "Dr. Pradeep Tiwari",
+        "qualification": "MBBS, MD Pathology",
+        "specialization": "Haematology & Cytopathology",
+        "experience": "11 Years",
+        "initials": "PT",
+        "color": "var(--saffron)",
+        "bg": "var(--saffron-muted)"
+      },
+      {
+        "name": "Dr. Kavita Shukla",
+        "qualification": "MBBS, MD Pathology",
+        "specialization": "Microbiology & Immunology",
+        "experience": "9 Years",
+        "initials": "KS",
+        "color": "var(--forest)",
+        "bg": "var(--forest-pale)"
+      },
+      {
+        "name": "Dr. Rajan Gupta",
+        "qualification": "MBBS, DNB Pathology",
+        "specialization": "Molecular Diagnostics",
+        "experience": "8 Years",
+        "initials": "RG",
+        "color": "var(--navy)",
+        "bg": "var(--navy-pale)"
+      }
+    ]
+  }
+}

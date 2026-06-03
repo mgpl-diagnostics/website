@@ -1,0 +1,75 @@
+{
+  "testimonials": {
+    "sectionTag": "Patient Stories",
+    "heading": "Trusted by",
+    "headingAccent": "50,000+ Families",
+    "subtext": "Real experiences from real patients across Chhattisgarh — because trust is built one family at a time.",
+    "rating": {
+      "score": "4.9",
+      "maxScore": "5",
+      "reviewCount": "3,200+"
+    },
+    "items": [
+      {
+        "name": "Sunita Agarwal",
+        "location": "Raipur, Chhattisgarh",
+        "initials": "SA",
+        "rating": 5,
+        "testType": "Full Body Checkup",
+        "text": "MGPL has been our family's go-to lab for years. The staff is incredibly courteous, reports are always accurate, and the home collection service is a true blessing — especially for my elderly mother-in-law.",
+        "color": "var(--saffron)",
+        "bg": "var(--saffron-muted)"
+      },
+      {
+        "name": "Rajesh Kumar Singh",
+        "location": "Durg, Chhattisgarh",
+        "initials": "RK",
+        "rating": 5,
+        "testType": "Diabetes Panel",
+        "text": "Got my HbA1c and fasting glucose done here. The report was ready within 5 hours and shared on WhatsApp. The doctor consultation after the report was an unexpected bonus. Highly recommend.",
+        "color": "var(--navy)",
+        "bg": "var(--navy-pale)"
+      },
+      {
+        "name": "Priya Mehta",
+        "location": "Bilaspur, Chhattisgarh",
+        "initials": "PM",
+        "rating": 5,
+        "testType": "Thyroid Profile",
+        "text": "I was anxious about my thyroid results, but the staff was so warm and reassuring. The pathologist called personally to explain the values. That kind of care is rare today.",
+        "color": "var(--forest)",
+        "bg": "var(--forest-pale)"
+      },
+      {
+        "name": "Anil Sharma",
+        "location": "Raipur, Chhattisgarh",
+        "initials": "AS",
+        "rating": 5,
+        "testType": "Lipid Profile",
+        "text": "Booked for my father — 78 years old — via home collection. The phlebotomist was gentle, professional, and on time. Reports were accurate and shared digitally. Superb service.",
+        "color": "var(--saffron)",
+        "bg": "var(--saffron-muted)"
+      },
+      {
+        "name": "Nandini Tiwari",
+        "location": "Bhilai, Chhattisgarh",
+        "initials": "NT",
+        "rating": 5,
+        "testType": "CBC + Iron Studies",
+        "text": "Diagnosed early with iron deficiency thanks to MGPL's comprehensive iron panel suggestion. The team here thinks about your health holistically. I'm truly grateful.",
+        "color": "var(--navy)",
+        "bg": "var(--navy-pale)"
+      },
+      {
+        "name": "Mohit Verma",
+        "location": "Raipur, Chhattisgarh",
+        "initials": "MV",
+        "rating": 5,
+        "testType": "Vitamin Panel",
+        "text": "Best diagnostics in the city. Clean facility, courteous staff, quick results. The digital reports make it effortless to share with multiple doctors. Will always return here.",
+        "color": "var(--forest)",
+        "bg": "var(--forest-pale)"
+      }
+    ]
+  }
+}

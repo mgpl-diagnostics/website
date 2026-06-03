@@ -1,31 +1,17 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Truck, Clock, CheckCircle2, Phone, ArrowRight } from 'lucide-react';
-import { siteConfig } from '@/lib/config';
+import { Truck, Clock, CheckCircle2, Phone, ArrowRight, type LucideIcon } from 'lucide-react';
+import { siteConfig, cfg } from '@/lib/config';
+import { useBookTest } from '@/context/BookTestContext';
 
-const steps = [
-  {
-    number: '01',
-    title: 'Book Online',
-    description: 'Choose your tests and select a convenient time slot through our website or phone.',
-    icon: Phone,
-  },
-  {
-    number: '02',
-    title: 'We Come to You',
-    description: 'Our certified phlebotomist arrives at your door, equipped with sterile collection kits.',
-    icon: Truck,
-  },
-  {
-    number: '03',
-    title: 'Reports Online',
-    description: 'Receive your digitally verified report via WhatsApp, email, or our secure portal.',
-    icon: CheckCircle2,
-  },
-];
+const ICON_MAP: Record<string, LucideIcon> = { Phone, Truck, CheckCircle2 };
+
+const hc = cfg.homeCollection;
 
 export default function HomeCollection() {
+  const { openDialog } = useBookTest();
+
   return (
     <section
       id="home-collection"
@@ -35,14 +21,8 @@ export default function HomeCollection() {
     >
       {/* Background decorative shapes */}
       <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="absolute -top-40 right-0 w-80 h-80 rounded-full blur-3xl"
-          style={{ background: 'rgba(230,81,0,0.06)' }}
-        />
-        <div
-          className="absolute bottom-0 left-1/4 w-64 h-64 rounded-full blur-3xl"
-          style={{ background: 'rgba(13,43,94,0.05)' }}
-        />
+        <div className="absolute -top-40 right-0 w-80 h-80 rounded-full blur-3xl" style={{ background: 'rgba(230,81,0,0.06)' }} />
+        <div className="absolute bottom-0 left-1/4 w-64 h-64 rounded-full blur-3xl" style={{ background: 'rgba(13,43,94,0.05)' }} />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -55,29 +35,15 @@ export default function HomeCollection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-14"
         >
-          <p
-            className="text-xs font-semibold tracking-widest uppercase mb-4"
-            style={{ color: 'var(--saffron)', fontFamily: 'var(--font-body)' }}
-          >
-            At-Home Service
+          <p className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: 'var(--saffron)', fontFamily: 'var(--font-body)' }}>
+            {hc.sectionTag}
           </p>
-          <h2
-            className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight"
-            style={{ color: 'var(--navy)' }}
-          >
-            Diagnostics at Your
-            <span
-              className="block italic font-light"
-              style={{ color: 'var(--saffron)' }}
-            >
-              Doorstep
-            </span>
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight" style={{ color: 'var(--navy)' }}>
+            {hc.heading}
+            <span className="block italic font-light" style={{ color: 'var(--saffron)' }}>{hc.headingAccent}</span>
           </h2>
-          <p
-            className="text-base leading-relaxed mt-4 max-w-xl mx-auto"
-            style={{ color: 'var(--muted)', fontFamily: 'var(--font-body)' }}
-          >
-            Skip the queue. Our certified phlebotomists come to your home at a time that works for you — especially ideal for elderly patients, busy families, and post-surgical care.
+          <p className="text-base leading-relaxed mt-4 max-w-xl mx-auto" style={{ color: 'var(--muted)', fontFamily: 'var(--font-body)' }}>
+            {hc.subtext}
           </p>
         </motion.div>
 
@@ -85,8 +51,8 @@ export default function HomeCollection() {
 
           {/* ── Left: Steps ────────────────────────────────── */}
           <div className="space-y-6">
-            {steps.map((step, i) => {
-              const Icon = step.icon;
+            {hc.steps.map((step, i) => {
+              const Icon = ICON_MAP[step.icon] ?? Phone;
               return (
                 <motion.div
                   key={step.number}
@@ -96,50 +62,23 @@ export default function HomeCollection() {
                   transition={{ duration: 0.55, delay: i * 0.14, ease: 'easeOut' }}
                   className="flex gap-5 items-start"
                 >
-                  {/* Step number + connector */}
                   <div className="flex flex-col items-center shrink-0">
-                    <div
-                      className="w-12 h-12 rounded-2xl flex items-center justify-center font-display font-bold text-xl text-white shadow-md"
-                      style={{ background: 'var(--navy)' }}
-                    >
+                    <div className="w-12 h-12 rounded-2xl flex items-center justify-center font-display font-bold text-xl text-white shadow-md" style={{ background: 'var(--navy)' }}>
                       {step.number}
                     </div>
-                    {i < steps.length - 1 && (
-                      <div
-                        className="w-px flex-1 mt-2"
-                        style={{
-                          minHeight: '40px',
-                          background: 'linear-gradient(to bottom, var(--navy), transparent)',
-                          opacity: 0.25,
-                        }}
-                      />
+                    {i < hc.steps.length - 1 && (
+                      <div className="w-px flex-1 mt-2" style={{ minHeight: '40px', background: 'linear-gradient(to bottom, var(--navy), transparent)', opacity: 0.25 }} />
                     )}
                   </div>
 
-                  <div
-                    className="rounded-2xl p-5 flex-1 bg-white transition-all duration-200 hover:shadow-md"
-                    style={{ border: '1px solid var(--border)' }}
-                  >
+                  <div className="rounded-2xl p-5 flex-1 bg-white transition-all duration-200 hover:shadow-md" style={{ border: '1px solid var(--border)' }}>
                     <div className="flex items-center gap-3 mb-2">
-                      <div
-                        className="w-8 h-8 rounded-lg flex items-center justify-center"
-                        style={{ background: 'var(--saffron-muted)' }}
-                      >
+                      <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'var(--saffron-muted)' }}>
                         <Icon className="w-4 h-4" color="var(--saffron)" />
                       </div>
-                      <h3
-                        className="font-display font-semibold text-lg"
-                        style={{ color: 'var(--navy)' }}
-                      >
-                        {step.title}
-                      </h3>
+                      <h3 className="font-display font-semibold text-lg" style={{ color: 'var(--navy)' }}>{step.title}</h3>
                     </div>
-                    <p
-                      className="text-sm leading-relaxed"
-                      style={{ color: 'var(--muted)', fontFamily: 'var(--font-body)' }}
-                    >
-                      {step.description}
-                    </p>
+                    <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)', fontFamily: 'var(--font-body)' }}>{step.description}</p>
                   </div>
                 </motion.div>
               );
@@ -154,96 +93,56 @@ export default function HomeCollection() {
             transition={{ duration: 0.7, ease: 'easeOut' }}
             className="relative"
           >
-            {/* Main CTA card */}
-            <div
-              className="rounded-3xl p-8 lg:p-10 relative overflow-hidden"
-              style={{ background: 'var(--navy)' }}
-            >
-              {/* Decorative circle */}
-              <div
-                className="absolute -top-16 -right-16 w-48 h-48 rounded-full"
-                style={{ background: 'rgba(230,81,0,0.15)' }}
-              />
-              <div
-                className="absolute -bottom-12 -left-12 w-36 h-36 rounded-full"
-                style={{ background: 'rgba(255,143,0,0.1)' }}
-              />
+            <div className="rounded-3xl p-8 lg:p-10 relative overflow-hidden" style={{ background: 'var(--navy)' }}>
+              <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full" style={{ background: 'rgba(230,81,0,0.15)' }} />
+              <div className="absolute -bottom-12 -left-12 w-36 h-36 rounded-full" style={{ background: 'rgba(255,143,0,0.1)' }} />
 
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-6">
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center"
-                    style={{ background: 'rgba(230,81,0,0.2)' }}
-                  >
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: 'rgba(230,81,0,0.2)' }}>
                     <Truck className="w-6 h-6" color="var(--saffron)" />
                   </div>
                   <div>
-                    <p className="text-white font-display font-semibold text-lg">Home Collection</p>
-                    <p className="text-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>Quick & hassle-free</p>
+                    <p className="text-white font-display font-semibold text-lg">{hc.cardTitle}</p>
+                    <p className="text-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>{hc.cardSubtitle}</p>
                   </div>
                 </div>
 
                 {/* Features list */}
                 <div className="space-y-3 mb-8">
-                  {[
-                    'No extra home collection charges',
-                    'Certified & trained phlebotomists',
-                    'Real-time booking confirmation',
-                    'Report via WhatsApp & email',
-                  ].map((item) => (
+                  {hc.features.map((item) => (
                     <div key={item} className="flex items-center gap-3">
-                      <div
-                        className="w-5 h-5 rounded-full flex items-center justify-center shrink-0"
-                        style={{ background: 'rgba(27,138,90,0.3)' }}
-                      >
+                      <div className="w-5 h-5 rounded-full flex items-center justify-center shrink-0" style={{ background: 'rgba(27,138,90,0.3)' }}>
                         <CheckCircle2 className="w-3 h-3" color="#1B8A5A" />
                       </div>
-                      <span
-                        className="text-sm"
-                        style={{ color: 'rgba(255,255,255,0.8)', fontFamily: 'var(--font-body)' }}
-                      >
-                        {item}
-                      </span>
+                      <span className="text-sm" style={{ color: 'rgba(255,255,255,0.8)', fontFamily: 'var(--font-body)' }}>{item}</span>
                     </div>
                   ))}
                 </div>
 
                 {/* Time indicators */}
-                <div
-                  className="flex items-center gap-3 rounded-xl px-4 py-3 mb-8"
-                  style={{ background: 'rgba(255,255,255,0.08)' }}
-                >
+                <div className="flex items-center gap-3 rounded-xl px-4 py-3 mb-8" style={{ background: 'rgba(255,255,255,0.08)' }}>
                   <Clock className="w-4 h-4 shrink-0" color="var(--amber)" />
-                  <span
-                    className="text-sm"
-                    style={{ color: 'rgba(255,255,255,0.75)', fontFamily: 'var(--font-body)' }}
-                  >
+                  <span className="text-sm" style={{ color: 'rgba(255,255,255,0.75)', fontFamily: 'var(--font-body)' }}>
                     Available {siteConfig.hours.short}
                   </span>
                 </div>
 
                 {/* CTA Button */}
-                <a
-                  href="#book"
+                <button
+                  onClick={openDialog}
                   className="group inline-flex items-center justify-center gap-2 w-full py-4 rounded-full text-sm font-semibold transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
-                  style={{
-                    background: 'var(--saffron)',
-                    color: '#fff',
-                    fontFamily: 'var(--font-body)',
-                  }}
+                  style={{ background: 'var(--saffron)', color: '#fff', fontFamily: 'var(--font-body)' }}
                   onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--saffron-light)')}
                   onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--saffron)')}
                 >
-                  Schedule Home Collection
+                  {hc.ctaLabel}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                </a>
+                </button>
 
                 {/* Floating pulse rings */}
                 <div className="absolute top-8 right-8 z-20">
-                  <div
-                    className="w-3 h-3 rounded-full"
-                    style={{ background: 'var(--saffron)', animation: 'pulse-cta 2.5s ease-in-out infinite' }}
-                  />
+                  <div className="w-3 h-3 rounded-full" style={{ background: 'var(--saffron)', animation: 'pulse-cta 2.5s ease-in-out infinite' }} />
                 </div>
               </div>
             </div>

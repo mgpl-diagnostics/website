@@ -3,49 +3,28 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Phone, Mail, MapPin, Globe, Clock } from 'lucide-react';
-import { siteConfig } from '@/lib/config';
+import { siteConfig, cfg } from '@/lib/config';
+import { useBookTest } from '@/context/BookTestContext';
 
-const footerLinks = {
-  services: [
-    { label: 'Blood Tests', href: '#services' },
-    { label: 'Full Body Checkup', href: '#services' },
-    { label: 'Thyroid Profile', href: '#services' },
-    { label: 'Diabetes Screening', href: '#services' },
-    { label: 'Home Collection', href: '#home-collection' },
-    { label: 'Advanced Diagnostics', href: '#services' },
-  ],
-  information: [
-    { label: 'About MGPL', href: '#why-choose' },
-    { label: 'Our Pathologists', href: '#doctors' },
-    { label: 'Test Categories', href: '#test-categories' },
-    { label: 'Report Portal', href: '#reports' },
-    { label: 'FAQs', href: '#faq' },
-    { label: 'Privacy Policy', href: '#' },
-  ],
-};
+const f = cfg.footer;
 
 export default function Footer() {
+  const { openDialog } = useBookTest();
+
   return (
     <footer id="contact" aria-label="Site footer" style={{ background: 'var(--navy)' }}>
 
       {/* Emergency CTA strip */}
-      <div
-        className="py-4"
-        style={{ background: 'var(--saffron)' }}
-      >
+      <div className="py-4" style={{ background: 'var(--saffron)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p
-            className="font-display font-semibold text-white text-lg"
-          >
-            Urgent test needed? We're open 7 days a week.
-          </p>
+          <p className="font-display font-semibold text-white text-lg">{f.emergencyText}</p>
           <a
             href={siteConfig.phone.primaryTel}
             className="inline-flex items-center gap-2 px-6 py-2.5 bg-white text-sm font-semibold rounded-full shrink-0 hover:bg-gray-50 transition-colors"
             style={{ color: 'var(--saffron)', fontFamily: 'var(--font-body)' }}
           >
             <Phone className="w-4 h-4" />
-            Call {siteConfig.phone.primary}
+            {f.emergencyCtaLabel} {siteConfig.phone.primary}
           </a>
         </div>
       </div>
@@ -67,20 +46,17 @@ export default function Footer() {
               />
             </Link>
 
-            <p
-              className="text-sm leading-relaxed mb-6 max-w-60"
-              style={{ color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-body)' }}
-            >
-              Your family's trusted diagnostic partner — combining clinical precision with compassionate care since {siteConfig.foundedYear}.
+            <p className="text-sm leading-relaxed mb-6 max-w-60" style={{ color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-body)' }}>
+              {f.brandTagline} {siteConfig.foundedYear}.
             </p>
 
             {/* Contact info */}
             <div className="space-y-2.5">
               {[
-                { icon: Phone, text: siteConfig.phone.primary, href: siteConfig.phone.primaryTel },
-                { icon: Mail, text: siteConfig.email.info, href: `mailto:${siteConfig.email.info}` },
-                { icon: MapPin, text: `${siteConfig.address.city}, ${siteConfig.address.state}`, href: siteConfig.googleMaps.shareLink },
-                { icon: Clock, text: siteConfig.hours.display, href: '#' },
+                { icon: Phone,  text: siteConfig.phone.primary,                              href: siteConfig.phone.primaryTel           },
+                { icon: Mail,   text: siteConfig.email.info,                                 href: `mailto:${siteConfig.email.info}`      },
+                { icon: MapPin, text: `${siteConfig.address.city}, ${siteConfig.address.state}`, href: siteConfig.googleMaps.shareLink    },
+                { icon: Clock,  text: siteConfig.hours.display,                              href: '#'                                    },
               ].map(({ icon: Icon, text, href }) => (
                 <a
                   key={text}
@@ -88,7 +64,7 @@ export default function Footer() {
                   className="flex items-center gap-2.5 text-sm transition-opacity hover:opacity-100 group"
                   style={{ color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)' }}
                 >
-                  <Icon className="w-3.5 h-3.5 shrink-0 group-hover:text-(--saffron)" color="var(--saffron)" />
+                  <Icon className="w-3.5 h-3.5 shrink-0" color="var(--saffron)" />
                   <span className="group-hover:text-white transition-colors">{text}</span>
                 </a>
               ))}
@@ -97,21 +73,14 @@ export default function Footer() {
 
           {/* Services column */}
           <div>
-            <h3
-              className="font-display font-semibold text-white text-lg mb-5"
-            >
-              Services
-            </h3>
+            <h3 className="font-display font-semibold text-white text-lg mb-5">{f.columns.services.heading}</h3>
             <ul className="space-y-2.5">
-              {footerLinks.services.map((link) => (
+              {f.columns.services.links.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
                     className="text-sm transition-colors"
-                    style={{
-                      color: 'rgba(255,255,255,0.55)',
-                      fontFamily: 'var(--font-body)',
-                    }}
+                    style={{ color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)' }}
                     onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--saffron)')}
                     onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.55)')}
                   >
@@ -124,21 +93,14 @@ export default function Footer() {
 
           {/* Information column */}
           <div>
-            <h3
-              className="font-display font-semibold text-white text-lg mb-5"
-            >
-              Information
-            </h3>
+            <h3 className="font-display font-semibold text-white text-lg mb-5">{f.columns.information.heading}</h3>
             <ul className="space-y-2.5">
-              {footerLinks.information.map((link) => (
+              {f.columns.information.links.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
                     className="text-sm transition-colors"
-                    style={{
-                      color: 'rgba(255,255,255,0.55)',
-                      fontFamily: 'var(--font-body)',
-                    }}
+                    style={{ color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)' }}
                     onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--saffron)')}
                     onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.55)')}
                   >
@@ -151,70 +113,35 @@ export default function Footer() {
 
           {/* Book / CTA column */}
           <div>
-            <h3 className="font-display font-semibold text-white text-lg mb-5">
-              Quick Book
-            </h3>
-            <p
-              className="text-sm leading-relaxed mb-5"
-              style={{ color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)' }}
-            >
-              Book a test online or schedule a home collection in under 2 minutes.
+            <h3 className="font-display font-semibold text-white text-lg mb-5">{f.quickBook.heading}</h3>
+            <p className="text-sm leading-relaxed mb-5" style={{ color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)' }}>
+              {f.quickBook.subtext}
             </p>
-            <div className="space-y-3">
-              <a
-                href="#book"
-                className="block text-center py-3 rounded-full text-white text-sm font-semibold transition-all hover:-translate-y-0.5"
-                style={{ background: 'var(--saffron)', fontFamily: 'var(--font-body)' }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--saffron-light)')}
-                onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--saffron)')}
-              >
-                Book a Test
-              </a>
-              <a
-                href="#reports"
-                className="block text-center py-3 rounded-full text-sm font-semibold transition-all hover:-translate-y-0.5"
-                style={{
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  color: 'rgba(255,255,255,0.8)',
-                  fontFamily: 'var(--font-body)',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)';
-                  e.currentTarget.style.color = '#fff';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.8)';
-                }}
-              >
-                Download Report
-              </a>
-            </div>
+            <button
+              onClick={openDialog}
+              className="block w-full text-center py-3 rounded-full text-white text-sm font-semibold transition-all hover:-translate-y-0.5"
+              style={{ background: 'var(--saffron)', fontFamily: 'var(--font-body)' }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--saffron-light)')}
+              onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--saffron)')}
+            >
+              {f.quickBook.ctaLabel}
+            </button>
 
             {/* Social links */}
             <div className="flex items-center gap-3 mt-6">
               {[
-                { label: 'Website', icon: Globe, href: siteConfig.social.website },
-                { label: 'WhatsApp', icon: Phone, href: siteConfig.phone.whatsapp },
-                { label: 'Email', icon: Mail, href: `mailto:${siteConfig.email.info}` },
+                { label: 'Website',  icon: Globe, href: siteConfig.social.website                    },
+                { label: 'WhatsApp', icon: Phone, href: siteConfig.phone.whatsapp                    },
+                { label: 'Email',    icon: Mail,  href: `mailto:${siteConfig.email.info}`            },
               ].map(({ label, icon: Icon, href }) => (
                 <a
                   key={label}
                   href={href}
                   aria-label={label}
                   className="w-9 h-9 rounded-full flex items-center justify-center transition-all"
-                  style={{
-                    background: 'rgba(255,255,255,0.08)',
-                    border: '1px solid rgba(255,255,255,0.12)',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'var(--saffron)';
-                    e.currentTarget.style.borderColor = 'var(--saffron)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
-                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)';
-                  }}
+                  style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--saffron)'; e.currentTarget.style.borderColor = 'var(--saffron)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)'; }}
                 >
                   <Icon className="w-4 h-4 text-white" />
                 </a>
@@ -225,22 +152,13 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div
-        className="py-4"
-        style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
-      >
+      <div className="py-4" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
-          <p
-            className="text-xs"
-            style={{ color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)' }}
-          >
-            © {new Date().getFullYear()} MGPL Diagnostics — Maa Gayatri Path Lab. All rights reserved.
+          <p className="text-xs" style={{ color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)' }}>
+            © {new Date().getFullYear()} {f.copyrightSuffix}
           </p>
-          <p
-            className="text-xs"
-            style={{ color: 'rgba(255,255,255,0.25)', fontFamily: 'var(--font-body)' }}
-          >
-            Accurate diagnostics. Compassionate care.
+          <p className="text-xs" style={{ color: 'rgba(255,255,255,0.25)', fontFamily: 'var(--font-body)' }}>
+            {f.footerTagline}
           </p>
         </div>
       </div>

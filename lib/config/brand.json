@@ -1,0 +1,32 @@
+{
+  "brand": {
+    "name": "MGPL Diagnostics",
+    "fullName": "MGPL Diagnostics — Maa Gayatri Path Lab",
+    "tagline": "Accurate Diagnostics. Compassionate Care.",
+    "subTagline": "Your family's trusted diagnostic partner.",
+    "description": "MGPL Diagnostics offers trusted pathology and diagnostic services: blood tests, full body checkups, thyroid profiles, diabetes screening, and home sample collection. NABL standard processes, expert pathologists, same-day reports.",
+    "foundedYear": 2010
+  },
+
+  "assets": {
+    "logo": {
+      "src": "/logo.png",
+      "width": 1536,
+      "height": 587,
+      "navbarHeight": 44
+    },
+    "banner": {
+      "src": "/banner.png",
+      "width": 1774,
+      "height": 87,
+      "alt": "MGPL Diagnostics — Maa Gayatri Path Lab • Advanced Testing. Trusted Care."
+    }
+  },
+
+  "seo": {
+    "title": "MGPL Diagnostics | Maa Gayatri Path Lab — Accurate Diagnostics, Compassionate Care",
+    "description": "MGPL Diagnostics offers trusted pathology and diagnostic services: blood tests, full body checkups, thyroid profiles, diabetes screening, and home sample collection. NABL standard processes, expert pathologists, same-day reports.",
+    "keywords": "MGPL Diagnostics, Maa Gayatri Path Lab, pathology lab, blood test, home collection, diagnostic center Raipur, diagnostic center Chhattisgarh",
+    "locale": "en_IN"
+  }
+}

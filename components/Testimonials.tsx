@@ -2,70 +2,9 @@
 
 import { motion } from 'framer-motion';
 import { Star, Quote } from 'lucide-react';
+import { cfg } from '@/lib/config';
 
-const testimonials = [
-  {
-    name: 'Sunita Agarwal',
-    location: 'Varanasi, UP',
-    initials: 'SA',
-    rating: 5,
-    testType: 'Full Body Checkup',
-    text: "MGPL has been our family's go-to lab for years. The staff is incredibly courteous, reports are always accurate, and the home collection service is a true blessing — especially for my elderly mother-in-law.",
-    color: 'var(--saffron)',
-    bg: 'var(--saffron-muted)',
-  },
-  {
-    name: 'Rajesh Kumar Singh',
-    location: 'Lucknow, UP',
-    initials: 'RK',
-    rating: 5,
-    testType: 'Diabetes Panel',
-    text: "Got my HbA1c and fasting glucose done here. The report was ready within 5 hours and shared on WhatsApp. The doctor consultation after the report was an unexpected bonus. Highly recommend.",
-    color: 'var(--navy)',
-    bg: 'var(--navy-pale)',
-  },
-  {
-    name: 'Priya Mehta',
-    location: 'Allahabad, UP',
-    initials: 'PM',
-    rating: 5,
-    testType: 'Thyroid Profile',
-    text: "I was anxious about my thyroid results, but the staff was so warm and reassuring. The pathologist called personally to explain the values. That kind of care is rare today.",
-    color: 'var(--forest)',
-    bg: 'var(--forest-pale)',
-  },
-  {
-    name: 'Anil Sharma',
-    location: 'Kanpur, UP',
-    initials: 'AS',
-    rating: 5,
-    testType: 'Lipid Profile',
-    text: "Booked for my father — 78 years old — via home collection. The phlebotomist was gentle, professional, and on time. Reports were accurate and shared digitally. Superb service.",
-    color: 'var(--saffron)',
-    bg: 'var(--saffron-muted)',
-  },
-  {
-    name: 'Nandini Tiwari',
-    location: 'Prayagraj, UP',
-    initials: 'NT',
-    rating: 5,
-    testType: 'CBC + Iron Studies',
-    text: "Diagnosed early with iron deficiency thanks to MGPL's comprehensive iron panel suggestion. The team here thinks about your health holistically. I'm truly grateful.",
-    color: 'var(--navy)',
-    bg: 'var(--navy-pale)',
-  },
-  {
-    name: 'Mohit Verma',
-    location: 'Varanasi, UP',
-    initials: 'MV',
-    rating: 5,
-    testType: 'Vitamin Panel',
-    text: "Best diagnostics in the city. Clean facility, courteous staff, quick results. The digital reports make it effortless to share with multiple doctors. Will always return here.",
-    color: 'var(--forest)',
-    bg: 'var(--forest-pale)',
-  },
-];
-
+const t = cfg.testimonials;
 const rotations = [-2, 1.5, -1, 2, -1.5, 1];
 
 export default function Testimonials() {
@@ -86,57 +25,37 @@ export default function Testimonials() {
           transition={{ duration: 0.55 }}
           className="text-center mb-14 lg:mb-16"
         >
-          <p
-            className="text-xs font-semibold tracking-widest uppercase mb-3"
-            style={{ color: 'var(--saffron)', fontFamily: 'var(--font-body)' }}
-          >
-            Patient Stories
+          <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: 'var(--saffron)', fontFamily: 'var(--font-body)' }}>
+            {t.sectionTag}
           </p>
-          <h2
-            className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight"
-            style={{ color: 'var(--navy)' }}
-          >
-            Trusted by
-            <span
-              className="block italic font-light"
-              style={{ color: 'var(--saffron)' }}
-            >
-              50,000+ Families
-            </span>
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight" style={{ color: 'var(--navy)' }}>
+            {t.heading}
+            <span className="block italic font-light" style={{ color: 'var(--saffron)' }}>{t.headingAccent}</span>
           </h2>
-          <p
-            className="text-base leading-relaxed mt-4 max-w-lg mx-auto"
-            style={{ color: 'var(--muted)', fontFamily: 'var(--font-body)' }}
-          >
-            Real experiences from real patients across Uttar Pradesh — because trust is built one family at a time.
+          <p className="text-base leading-relaxed mt-4 max-w-lg mx-auto" style={{ color: 'var(--muted)', fontFamily: 'var(--font-body)' }}>
+            {t.subtext}
           </p>
         </motion.div>
 
         {/* Testimonial cards grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {testimonials.map((t, i) => (
+          {t.items.map((item, i) => (
             <motion.article
-              key={t.name}
+              key={item.name}
               initial={{ opacity: 0, y: 28, rotate: 0 }}
               whileInView={{ opacity: 1, y: 0, rotate: rotations[i] * 0.5 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.6, delay: i * 0.08, ease: 'easeOut' }}
               whileHover={{ rotate: 0, y: -4, scale: 1.01 }}
               className="relative bg-white rounded-3xl p-6 flex flex-col cursor-default transition-shadow duration-300"
-              style={{
-                border: '1px solid var(--border)',
-                boxShadow: '0 4px 16px rgba(13,43,94,0.07)',
-              }}
+              style={{ border: '1px solid var(--border)', boxShadow: '0 4px 16px rgba(13,43,94,0.07)' }}
             >
               {/* Giant quote mark */}
-              <Quote
-                className="absolute top-4 right-5 w-10 h-10 opacity-[0.07]"
-                color={t.color}
-              />
+              <Quote className="absolute top-4 right-5 w-10 h-10 opacity-[0.07]" color={item.color} />
 
               {/* Stars */}
               <div className="flex gap-1 mb-4">
-                {Array.from({ length: t.rating }).map((_, s) => (
+                {Array.from({ length: item.rating }).map((_, s) => (
                   <Star key={s} className="w-3.5 h-3.5" fill="var(--amber)" color="var(--amber)" />
                 ))}
               </div>
@@ -144,17 +63,14 @@ export default function Testimonials() {
               {/* Test tag */}
               <span
                 className="inline-block text-[10px] font-semibold px-2.5 py-1 rounded-full mb-4 w-fit"
-                style={{ background: t.bg, color: t.color, fontFamily: 'var(--font-body)' }}
+                style={{ background: item.bg, color: item.color, fontFamily: 'var(--font-body)' }}
               >
-                {t.testType}
+                {item.testType}
               </span>
 
               {/* Quote text */}
-              <p
-                className="text-sm leading-relaxed flex-1 mb-5"
-                style={{ color: 'var(--charcoal)', fontFamily: 'var(--font-body)' }}
-              >
-                &ldquo;{t.text}&rdquo;
+              <p className="text-sm leading-relaxed flex-1 mb-5" style={{ color: 'var(--charcoal)', fontFamily: 'var(--font-body)' }}>
+                &ldquo;{item.text}&rdquo;
               </p>
 
               {/* Divider */}
@@ -164,23 +80,13 @@ export default function Testimonials() {
               <div className="flex items-center gap-3">
                 <div
                   className="w-10 h-10 rounded-full flex items-center justify-center text-white font-display font-bold text-sm shrink-0"
-                  style={{ background: t.color }}
+                  style={{ background: item.color }}
                 >
-                  {t.initials}
+                  {item.initials}
                 </div>
                 <div>
-                  <p
-                    className="text-sm font-semibold"
-                    style={{ color: 'var(--charcoal)', fontFamily: 'var(--font-body)' }}
-                  >
-                    {t.name}
-                  </p>
-                  <p
-                    className="text-xs"
-                    style={{ color: 'var(--muted)', fontFamily: 'var(--font-body)' }}
-                  >
-                    {t.location}
-                  </p>
+                  <p className="text-sm font-semibold" style={{ color: 'var(--charcoal)', fontFamily: 'var(--font-body)' }}>{item.name}</p>
+                  <p className="text-xs" style={{ color: 'var(--muted)', fontFamily: 'var(--font-body)' }}>{item.location}</p>
                 </div>
               </div>
             </motion.article>
@@ -202,10 +108,10 @@ export default function Testimonials() {
               ))}
             </div>
             <span className="text-sm font-semibold" style={{ color: 'var(--charcoal)' }}>
-              4.9 / 5
+              {t.rating.score} / {t.rating.maxScore}
             </span>
             <span className="text-sm" style={{ color: 'var(--muted)' }}>
-              from 3,200+ Google reviews
+              from {t.rating.reviewCount} Google reviews
             </span>
           </div>
         </motion.div>

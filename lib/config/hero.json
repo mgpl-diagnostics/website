@@ -1,0 +1,34 @@
+{
+  "hero": {
+    "badge": "NABL Standard Processes",
+    "headline": {
+      "line1": "Accurate",
+      "line2": "Diagnostics.",
+      "line3": "Compassionate",
+      "line4": "Care."
+    },
+    "subtext": "Your family's trusted diagnostic partner — from routine blood panels to advanced profiles, delivered with precision, warmth, and complete dignity.",
+    "ctaPrimary": "Book a Test",
+    "socialProof": {
+      "patientsServed": "50,000+",
+      "patientsLabel": "patients served",
+      "rating": "4.9",
+      "ratingOutOf": "5",
+      "avatarInitials": ["S", "R", "A", "K"]
+    },
+    "reportCard": {
+      "title": "Patient Report",
+      "testName": "Lipid Profile",
+      "reportId": "MG-2024-08821",
+      "footerVerified": "Digitally Verified",
+      "footerTurnaround": "Report ready in 6 hrs",
+      "metrics": [
+        { "name": "Total Cholesterol", "value": "178 mg/dL", "ref": "< 200", "ok": true },
+        { "name": "HDL Cholesterol",   "value": "62 mg/dL",  "ref": "> 40",  "ok": true },
+        { "name": "Triglycerides",     "value": "145 mg/dL", "ref": "< 150", "ok": true },
+        { "name": "LDL Cholesterol",   "value": "98 mg/dL",  "ref": "< 100", "ok": true },
+        { "name": "VLDL Cholesterol",  "value": "29 mg/dL",  "ref": "< 30",  "ok": true }
+      ]
+    }
+  }
+}

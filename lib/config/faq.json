@@ -1,0 +1,45 @@
+{
+  "faq": {
+    "sectionTag": "Common Questions",
+    "heading": "Questions &",
+    "headingAccent": "Answers",
+    "subtext": "Everything you need to know about booking tests, collecting samples, and getting results.",
+    "stillHaveQuestionsTitle": "Still have questions?",
+    "stillHaveQuestionsSubtext": "Our team is available Mon–Sun, 7 AM – 8 PM.",
+    "callCtaLabel": "Call Us Now",
+    "items": [
+      {
+        "q": "How do I book a home sample collection?",
+        "a": "You can book through our website by clicking \"Book a Test\", or call us directly. Choose your preferred time slot, and our certified phlebotomist will arrive at your doorstep — typically within the same day."
+      },
+      {
+        "q": "When will I receive my test reports?",
+        "a": "Most routine tests (CBC, glucose, thyroid) are available within 4–6 hours of sample collection. Advanced tests may take 24–72 hours. Reports are shared via WhatsApp and email."
+      },
+      {
+        "q": "Are MGPL's processes NABL certified?",
+        "a": "MGPL Diagnostics follows NABL (National Accreditation Board for Testing and Calibration Laboratories) standard processes — ensuring the highest accuracy, traceability, and reliability in all diagnostic tests."
+      },
+      {
+        "q": "Is fasting required for blood tests?",
+        "a": "Fasting (8–12 hours, water only) is required for tests like fasting glucose, lipid profile, and some liver function tests. Tests such as CBC, thyroid, HbA1c, and vitamin panels generally do not require fasting. Our team informs you at booking."
+      },
+      {
+        "q": "What is the home collection charge?",
+        "a": "We currently offer home collection at no additional charge for most standard test panels. For remote addresses or after-hours collection, a nominal fee may apply — which is always disclosed upfront at the time of booking."
+      },
+      {
+        "q": "Can I get a consultation after my reports?",
+        "a": "Yes. Our pathologists are available for brief report consultations. For detailed clinical advice, we recommend consulting your family physician or specialist with the MGPL report in hand — our reports include reference ranges and interpretation notes."
+      },
+      {
+        "q": "How are samples handled and transported?",
+        "a": "All samples are collected in pre-labelled, sealed, medical-grade tubes and transported in temperature-controlled carriers within 2 hours of collection. Our chain-of-custody process ensures sample integrity from your home to the lab."
+      },
+      {
+        "q": "Do you serve all areas of Raipur?",
+        "a": "Yes, we provide home collection services across Raipur and surrounding areas in Chhattisgarh. Call us or book online to confirm availability for your specific location."
+      }
+    ]
+  }
+}

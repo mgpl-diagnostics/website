@@ -1,0 +1,27 @@
+{
+  "nav": {
+    "links": [
+      { "label": "Services",        "href": "#services"        },
+      { "label": "Why MGPL",        "href": "#why-choose"      },
+      { "label": "Home Collection", "href": "#home-collection" },
+      { "label": "Tests",           "href": "#test-categories" },
+      { "label": "About",           "href": "#doctors"         }
+    ],
+    "ctaLabel": "Book a Test"
+  },
+
+  "bookTestDialog": {
+    "heading": "Book a Test",
+    "subtext": "Choose how you'd like to connect with us",
+    "whatsapp": {
+      "label": "WhatsApp",
+      "description": "Chat with us instantly on WhatsApp",
+      "subtext": "Quickest response"
+    },
+    "call": {
+      "label": "Call Us",
+      "description": "Speak directly with our team",
+      "subtext": "Available 7 AM – 8 PM"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "homeCollection": {
+    "sectionTag": "At-Home Service",
+    "heading": "Diagnostics at Your",
+    "headingAccent": "Doorstep",
+    "subtext": "Skip the queue. Our certified phlebotomists come to your home at a time that works for you — especially ideal for elderly patients, busy families, and post-surgical care.",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Book Online",
+        "description": "Choose your tests and select a convenient time slot through our website or phone.",
+        "icon": "Phone"
+      },
+      {
+        "number": "02",
+        "title": "We Come to You",
+        "description": "Our certified phlebotomist arrives at your door, equipped with sterile collection kits.",
+        "icon": "Truck"
+      },
+      {
+        "number": "03",
+        "title": "Reports Online",
+        "description": "Receive your digitally verified report via WhatsApp, email, or our secure portal.",
+        "icon": "CheckCircle2"
+      }
+    ],
+    "cardTitle": "Home Collection",
+    "cardSubtitle": "Quick & hassle-free",
+    "features": [
+      "No extra home collection charges",
+      "Certified & trained phlebotomists",
+      "Real-time booking confirmation",
+      "Report via WhatsApp & email"
+    ],
+    "ctaLabel": "Schedule Home Collection"
+  }
+}

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
+import Providers from "@/components/Providers";
 import "./globals.css";
+import { cfg } from "@/lib/config";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -17,17 +19,14 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "MGPL Diagnostics | Maa Gayatri Path Lab — Accurate Diagnostics, Compassionate Care",
-  description:
-    "MGPL Diagnostics offers trusted pathology and diagnostic services: blood tests, full body checkups, thyroid profiles, diabetes screening, and home sample collection. NABL standard processes, expert pathologists, same-day reports.",
-  keywords:
-    "MGPL Diagnostics, Maa Gayatri Path Lab, pathology lab, blood test, home collection, diagnostic center India",
+  title: cfg.seo.title,
+  description: cfg.seo.description,
+  keywords: cfg.seo.keywords,
   openGraph: {
-    title: "MGPL Diagnostics | Maa Gayatri Path Lab",
-    description:
-      "Your family's trusted diagnostic partner. Accurate reports, expert pathologists, same-day results.",
+    title: cfg.brand.name,
+    description: cfg.brand.description,
     type: "website",
-    locale: "en_IN",
+    locale: cfg.seo.locale,
   },
   robots: { index: true, follow: true },
 };
@@ -42,7 +41,9 @@ export default function RootLayout({
       lang="en"
       className={`${cormorant.variable} ${manrope.variable}`}
     >
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

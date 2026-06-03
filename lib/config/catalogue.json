@@ -1,0 +1,224 @@
+{
+  "testCatalogue": {
+    "sectionTag": "Test Catalogue",
+    "heading": "Explore by",
+    "headingAccent": "Category",
+    "popularTestsHeading": "Most Booked Tests",
+    "allTestsHeading": "All Tests",
+    "allTestsSubtext": "tests available",
+    "bookLabel": "Book",
+    "preparationLabel": "Preparation",
+    "parametersLabel": "Includes",
+    "backLabel": "All Categories",
+
+    "categories": [
+      { "label": "Haematology",   "icon": "TestTube2",   "color": "var(--saffron)", "bg": "var(--saffron-muted)" },
+      { "label": "Biochemistry",  "icon": "Activity",    "color": "var(--navy)",    "bg": "var(--navy-pale)"     },
+      { "label": "Endocrinology", "icon": "Zap",         "color": "var(--amber)",   "bg": "#FFF8E1"              },
+      { "label": "Cardiology",    "icon": "HeartPulse",  "color": "var(--saffron)", "bg": "var(--saffron-muted)" },
+      { "label": "Diabetology",   "icon": "Droplets",    "color": "var(--forest)",  "bg": "var(--forest-pale)"   },
+      { "label": "Immunology",    "icon": "Shield",      "color": "var(--navy)",    "bg": "var(--navy-pale)"     },
+      { "label": "Pathology",     "icon": "Microscope",  "color": "var(--saffron)", "bg": "var(--saffron-muted)" },
+      { "label": "Gynaecology",   "icon": "Heart",       "color": "#C44569",        "bg": "#FFE4F0"              },
+      { "label": "Paediatrics",   "icon": "Users",       "color": "var(--amber)",   "bg": "#FFF8E1"              },
+      { "label": "General",       "icon": "Stethoscope", "color": "var(--forest)",  "bg": "var(--forest-pale)"   }
+    ],
+
+    "popularTests": [
+      { "name": "CBC (Complete Blood Count)",        "price": "₹ 350", "turnaround": "4–6 hrs", "tag": "Popular"    },
+      { "name": "HbA1c (Glycated Haemoglobin)",      "price": "₹ 450", "turnaround": "6 hrs",   "tag": "Diabetes"   },
+      { "name": "Thyroid Stimulating Hormone (TSH)", "price": "₹ 280", "turnaround": "4 hrs",   "tag": "Thyroid"    },
+      { "name": "Lipid Profile (Full)",              "price": "₹ 550", "turnaround": "6 hrs",   "tag": "Heart"      },
+      { "name": "Vitamin D (25-OH)",                 "price": "₹ 750", "turnaround": "24 hrs",  "tag": "Deficiency" },
+      { "name": "Kidney Function Test (KFT)",        "price": "₹ 500", "turnaround": "6 hrs",   "tag": "Kidney"     }
+    ],
+
+    "allTests": [
+      {
+        "category": "Haematology",
+        "tests": [
+          { "name": "CBC (Complete Blood Count)",         "price": "₹ 350",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Hb, WBC, RBC, Platelets, PCV, MCV, MCH, MCHC, Differential Count" },
+          { "name": "Peripheral Blood Smear",             "price": "₹ 250",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "RBC morphology, WBC differential, Platelet estimate" },
+          { "name": "ESR (Erythrocyte Sedimentation Rate)","price": "₹ 150", "turnaround": "2–4 hrs",   "preparation": "No fasting required",    "parameters": "ESR (Westergren method)" },
+          { "name": "Reticulocyte Count",                 "price": "₹ 250",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Reticulocyte %, Absolute Reticulocyte Count" },
+          { "name": "Bleeding Time & Clotting Time",      "price": "₹ 150",  "turnaround": "1–2 hrs",   "preparation": "No fasting required",    "parameters": "BT (Ivy method), CT (Lee-White method)" },
+          { "name": "PT / INR (Prothrombin Time)",        "price": "₹ 350",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "PT (seconds), INR, % Activity" },
+          { "name": "APTT (Activated Partial Thromboplastin Time)", "price": "₹ 350", "turnaround": "4–6 hrs", "preparation": "No fasting required", "parameters": "APTT (seconds), Ratio" },
+          { "name": "D-Dimer",                            "price": "₹ 950",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "D-Dimer (quantitative)" },
+          { "name": "Fibrinogen",                         "price": "₹ 850",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Fibrinogen level (Clauss method)" },
+          { "name": "Sickle Cell Screening",              "price": "₹ 300",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Sickling test, Hb Electrophoresis" },
+          { "name": "G6PD Enzyme Assay",                  "price": "₹ 850",  "turnaround": "24 hrs",    "preparation": "No fasting required",    "parameters": "G6PD enzyme activity (quantitative)" },
+          { "name": "Malaria Antigen (PfPv Rapid)",       "price": "₹ 450",  "turnaround": "2–4 hrs",   "preparation": "No fasting required",    "parameters": "P. falciparum HRP2, P. vivax pLDH" },
+          { "name": "MP Smear (Malarial Parasite)",       "price": "₹ 200",  "turnaround": "2–4 hrs",   "preparation": "No fasting required",    "parameters": "Thick & thin smear for malarial parasite" },
+          { "name": "Absolute Eosinophil Count",          "price": "₹ 150",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Absolute Eosinophil Count (AEC)" }
+        ]
+      },
+      {
+        "category": "Biochemistry",
+        "tests": [
+          { "name": "Liver Function Test (LFT)",          "price": "₹ 550",  "turnaround": "6 hrs",     "preparation": "8 hrs fasting preferred", "parameters": "SGOT, SGPT, ALP, GGT, Total & Direct Bilirubin, Total Protein, Albumin, Globulin, A/G Ratio" },
+          { "name": "Kidney Function Test (KFT)",         "price": "₹ 500",  "turnaround": "6 hrs",     "preparation": "No fasting required",    "parameters": "Urea, Creatinine, Uric Acid, eGFR, BUN" },
+          { "name": "Lipid Profile",                      "price": "₹ 550",  "turnaround": "6 hrs",     "preparation": "12 hrs fasting required", "parameters": "Total Cholesterol, HDL, LDL, VLDL, Triglycerides, Cholesterol/HDL Ratio" },
+          { "name": "Serum Electrolytes",                 "price": "₹ 450",  "turnaround": "6 hrs",     "preparation": "No fasting required",    "parameters": "Sodium (Na), Potassium (K), Chloride (Cl)" },
+          { "name": "Serum Calcium",                      "price": "₹ 200",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Total Calcium, Ionized Calcium" },
+          { "name": "Serum Phosphorus",                   "price": "₹ 200",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Inorganic Phosphorus" },
+          { "name": "Serum Magnesium",                    "price": "₹ 350",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Serum Magnesium (quantitative)" },
+          { "name": "SGOT / AST",                         "price": "₹ 150",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Aspartate Aminotransferase (AST/SGOT)" },
+          { "name": "SGPT / ALT",                         "price": "₹ 150",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Alanine Aminotransferase (ALT/SGPT)" },
+          { "name": "Alkaline Phosphatase (ALP)",         "price": "₹ 150",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "ALP (U/L)" },
+          { "name": "GGT (Gamma Glutamyl Transferase)",   "price": "₹ 200",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "GGT (U/L)" },
+          { "name": "Total & Direct Bilirubin",           "price": "₹ 200",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Total Bilirubin, Direct (conjugated), Indirect (unconjugated)" },
+          { "name": "Serum Uric Acid",                    "price": "₹ 150",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Uric Acid (mg/dL)" },
+          { "name": "Serum Creatinine",                   "price": "₹ 150",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Creatinine + eGFR (CKD-EPI)" },
+          { "name": "Amylase",                            "price": "₹ 350",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Serum Amylase (U/L)" },
+          { "name": "Lipase",                             "price": "₹ 450",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Serum Lipase (U/L)" },
+          { "name": "LDH (Lactate Dehydrogenase)",        "price": "₹ 450",  "turnaround": "6 hrs",     "preparation": "No fasting required",    "parameters": "Total LDH (U/L)" },
+          { "name": "CPK Total (Creatine Kinase)",        "price": "₹ 450",  "turnaround": "6 hrs",     "preparation": "No fasting required",    "parameters": "Total CK (U/L)" },
+          { "name": "CPK-MB",                             "price": "₹ 650",  "turnaround": "6 hrs",     "preparation": "No fasting required",    "parameters": "CK-MB mass + % of total CK" },
+          { "name": "Troponin I (Quantitative)",          "price": "₹ 950",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "High-sensitivity Troponin I (ng/L)" },
+          { "name": "Total Protein & Albumin",            "price": "₹ 250",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Total Protein, Albumin, Globulin, A/G Ratio" }
+        ]
+      },
+      {
+        "category": "Endocrinology",
+        "tests": [
+          { "name": "TSH (Thyroid Stimulating Hormone)",  "price": "₹ 280",  "turnaround": "4 hrs",     "preparation": "No fasting required",    "parameters": "TSH (µIU/mL) — 3rd generation" },
+          { "name": "T3 (Total Triiodothyronine)",        "price": "₹ 280",  "turnaround": "4 hrs",     "preparation": "No fasting required",    "parameters": "Total T3 (ng/dL)" },
+          { "name": "T4 (Total Thyroxine)",               "price": "₹ 280",  "turnaround": "4 hrs",     "preparation": "No fasting required",    "parameters": "Total T4 (µg/dL)" },
+          { "name": "Free T3 (FT3)",                      "price": "₹ 380",  "turnaround": "4 hrs",     "preparation": "No fasting required",    "parameters": "Free Triiodothyronine (pg/mL)" },
+          { "name": "Free T4 (FT4)",                      "price": "₹ 380",  "turnaround": "4 hrs",     "preparation": "No fasting required",    "parameters": "Free Thyroxine (ng/dL)" },
+          { "name": "Thyroid Profile (T3, T4, TSH)",      "price": "₹ 750",  "turnaround": "6 hrs",     "preparation": "No fasting required",    "parameters": "T3, T4, TSH" },
+          { "name": "Thyroid Profile Advanced (FT3, FT4, TSH)", "price": "₹ 950", "turnaround": "6 hrs", "preparation": "No fasting required",   "parameters": "Free T3, Free T4, TSH (3rd generation)" },
+          { "name": "Anti-TPO Antibodies",                "price": "₹ 750",  "turnaround": "24 hrs",    "preparation": "No fasting required",    "parameters": "Anti-Thyroid Peroxidase IgG (IU/mL)" },
+          { "name": "Anti-Thyroglobulin Antibody",        "price": "₹ 750",  "turnaround": "24 hrs",    "preparation": "No fasting required",    "parameters": "Anti-TG Antibody (IU/mL)" },
+          { "name": "Thyroglobulin (TG)",                 "price": "₹ 950",  "turnaround": "24 hrs",    "preparation": "No fasting required",    "parameters": "Serum Thyroglobulin (ng/mL)" },
+          { "name": "Cortisol (Morning)",                 "price": "₹ 750",  "turnaround": "6 hrs",     "preparation": "Sample between 7–10 AM", "parameters": "Serum Cortisol (µg/dL)" },
+          { "name": "Insulin Fasting",                    "price": "₹ 650",  "turnaround": "6 hrs",     "preparation": "8–10 hrs fasting required", "parameters": "Fasting Insulin (µIU/mL)" },
+          { "name": "C-Peptide",                          "price": "₹ 850",  "turnaround": "24 hrs",    "preparation": "8 hrs fasting required", "parameters": "C-Peptide (ng/mL)" },
+          { "name": "PTH (Parathyroid Hormone)",          "price": "₹ 1200", "turnaround": "24 hrs",    "preparation": "No fasting required",    "parameters": "Intact PTH (pg/mL)" },
+          { "name": "Growth Hormone (GH)",                "price": "₹ 1200", "turnaround": "24 hrs",    "preparation": "No fasting required",    "parameters": "Serum GH (ng/mL)" },
+          { "name": "IGF-1 (Somatomedin-C)",              "price": "₹ 1500", "turnaround": "24 hrs",    "preparation": "No fasting required",    "parameters": "IGF-1 (ng/mL)" }
+        ]
+      },
+      {
+        "category": "Cardiology",
+        "tests": [
+          { "name": "Lipid Profile (Full)",               "price": "₹ 550",  "turnaround": "6 hrs",     "preparation": "12 hrs fasting required", "parameters": "Total Cholesterol, HDL, LDL, VLDL, Triglycerides, Cholesterol/HDL Ratio" },
+          { "name": "hs-CRP (High Sensitivity CRP)",      "price": "₹ 750",  "turnaround": "6 hrs",     "preparation": "No fasting required",    "parameters": "High-sensitivity C-Reactive Protein (mg/L)" },
+          { "name": "Homocysteine",                       "price": "₹ 950",  "turnaround": "24 hrs",    "preparation": "12 hrs fasting required", "parameters": "Total Homocysteine (µmol/L)" },
+          { "name": "Troponin I (Quantitative)",          "price": "₹ 950",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "High-sensitivity Troponin I (ng/L)" },
+          { "name": "Troponin T (Quantitative)",          "price": "₹ 950",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "High-sensitivity Troponin T (ng/L)" },
+          { "name": "CPK-MB",                             "price": "₹ 650",  "turnaround": "6 hrs",     "preparation": "No fasting required",    "parameters": "CK-MB mass + % of total CK" },
+          { "name": "LDH (Lactate Dehydrogenase)",        "price": "₹ 450",  "turnaround": "6 hrs",     "preparation": "No fasting required",    "parameters": "Total LDH (U/L)" },
+          { "name": "NT-proBNP",                          "price": "₹ 1800", "turnaround": "24 hrs",    "preparation": "No fasting required",    "parameters": "N-Terminal pro-B-type Natriuretic Peptide (pg/mL)" },
+          { "name": "Lipoprotein (a) — Lp(a)",           "price": "₹ 1200", "turnaround": "24 hrs",    "preparation": "No fasting required",    "parameters": "Serum Lp(a) (mg/dL)" },
+          { "name": "ApoB / ApoA1",                       "price": "₹ 1100", "turnaround": "24 hrs",    "preparation": "12 hrs fasting required", "parameters": "Apolipoprotein B, Apolipoprotein A1, ApoB/ApoA1 ratio" },
+          { "name": "D-Dimer",                            "price": "₹ 950",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "D-Dimer quantitative (ng/mL FEU)" },
+          { "name": "Fibrinogen",                         "price": "₹ 850",  "turnaround": "6 hrs",     "preparation": "No fasting required",    "parameters": "Plasma Fibrinogen (mg/dL)" }
+        ]
+      },
+      {
+        "category": "Diabetology",
+        "tests": [
+          { "name": "Fasting Blood Sugar (FBS)",          "price": "₹ 80",   "turnaround": "2–4 hrs",   "preparation": "8–10 hrs fasting required", "parameters": "Fasting Glucose (mg/dL)" },
+          { "name": "Post Prandial Blood Sugar (PPBS)",   "price": "₹ 80",   "turnaround": "2–4 hrs",   "preparation": "2 hrs after meal",       "parameters": "Post Prandial Glucose (mg/dL)" },
+          { "name": "Random Blood Sugar (RBS)",           "price": "₹ 80",   "turnaround": "1–2 hrs",   "preparation": "No fasting required",    "parameters": "Random Glucose (mg/dL)" },
+          { "name": "HbA1c (Glycated Haemoglobin)",       "price": "₹ 450",  "turnaround": "6 hrs",     "preparation": "No fasting required",    "parameters": "HbA1c %, Estimated Average Glucose (eAG)" },
+          { "name": "Insulin Fasting",                    "price": "₹ 650",  "turnaround": "6 hrs",     "preparation": "8–10 hrs fasting required", "parameters": "Fasting Insulin (µIU/mL)" },
+          { "name": "C-Peptide",                          "price": "₹ 850",  "turnaround": "24 hrs",    "preparation": "8 hrs fasting required", "parameters": "C-Peptide (ng/mL)" },
+          { "name": "Microalbuminuria",                   "price": "₹ 450",  "turnaround": "6 hrs",     "preparation": "First morning urine sample", "parameters": "Urine Albumin-Creatinine Ratio (ACR)" },
+          { "name": "HOMA-IR (Insulin Resistance)",       "price": "₹ 1100", "turnaround": "24 hrs",    "preparation": "8–10 hrs fasting required", "parameters": "Fasting Glucose + Insulin → HOMA-IR index" },
+          { "name": "Diabetes Panel (Basic)",             "price": "₹ 650",  "turnaround": "6 hrs",     "preparation": "8–10 hrs fasting required", "parameters": "FBS, PPBS, HbA1c" },
+          { "name": "Diabetes Panel (Comprehensive)",     "price": "₹ 1200", "turnaround": "6 hrs",     "preparation": "8–10 hrs fasting required", "parameters": "FBS, PPBS, HbA1c, Fasting Insulin, KFT, Urine ACR" }
+        ]
+      },
+      {
+        "category": "Immunology",
+        "tests": [
+          { "name": "CRP (C-Reactive Protein)",           "price": "₹ 250",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Qualitative/Semi-quantitative CRP" },
+          { "name": "hs-CRP (High Sensitivity CRP)",      "price": "₹ 750",  "turnaround": "6 hrs",     "preparation": "No fasting required",    "parameters": "High-sensitivity CRP (mg/L)" },
+          { "name": "ANA (Antinuclear Antibody)",         "price": "₹ 950",  "turnaround": "24 hrs",    "preparation": "No fasting required",    "parameters": "ANA by ELISA / IFA, titer & pattern" },
+          { "name": "Anti-dsDNA Antibody",                "price": "₹ 1200", "turnaround": "48 hrs",    "preparation": "No fasting required",    "parameters": "Anti-double stranded DNA IgG (IU/mL)" },
+          { "name": "Rheumatoid Factor (RF)",             "price": "₹ 250",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "RF titer (IU/mL)" },
+          { "name": "Anti-CCP Antibody",                  "price": "₹ 1500", "turnaround": "48 hrs",    "preparation": "No fasting required",    "parameters": "Anti-Cyclic Citrullinated Peptide IgG (U/mL)" },
+          { "name": "ASLO (Anti-Streptolysin O)",         "price": "₹ 350",  "turnaround": "6 hrs",     "preparation": "No fasting required",    "parameters": "ASO titer (IU/mL)" },
+          { "name": "Complement C3 & C4",                 "price": "₹ 950",  "turnaround": "24 hrs",    "preparation": "No fasting required",    "parameters": "Serum C3, C4 (mg/dL)" },
+          { "name": "Total IgE",                          "price": "₹ 850",  "turnaround": "24 hrs",    "preparation": "No fasting required",    "parameters": "Total Immunoglobulin E (IU/mL)" },
+          { "name": "Widal Test",                         "price": "₹ 250",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Salmonella typhi O & H, S. paratyphi AO & BH agglutination titers" },
+          { "name": "Dengue NS1 Antigen",                 "price": "₹ 650",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Dengue NS1 Antigen (rapid/ELISA)" },
+          { "name": "Dengue IgM & IgG",                   "price": "₹ 850",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Dengue IgM, IgG (ELISA)" },
+          { "name": "Typhoid IgM (Enteric Fever)",        "price": "₹ 450",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Typhidot IgM (Salmonella typhi)" },
+          { "name": "HBsAg (Hepatitis B Surface Antigen)","price": "₹ 350",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "HBsAg qualitative (ELISA)" },
+          { "name": "Anti-HCV (Hepatitis C Antibody)",    "price": "₹ 550",  "turnaround": "6 hrs",     "preparation": "No fasting required",    "parameters": "Anti-HCV IgG/IgM (ELISA)" },
+          { "name": "HIV I & II",                         "price": "₹ 450",  "turnaround": "6 hrs",     "preparation": "No fasting required",    "parameters": "HIV 1 & 2 antibodies + p24 antigen (4th generation ELISA)" },
+          { "name": "VDRL (Syphilis Screening)",          "price": "₹ 250",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "VDRL reactive / non-reactive; titer if reactive" }
+        ]
+      },
+      {
+        "category": "Pathology",
+        "tests": [
+          { "name": "Urine Routine & Microscopy (R&M)",   "price": "₹ 150",  "turnaround": "4–6 hrs",   "preparation": "Mid-stream first morning urine", "parameters": "Physical, Chemical, Microscopic examination" },
+          { "name": "Urine Culture & Sensitivity",        "price": "₹ 650",  "turnaround": "48–72 hrs", "preparation": "Mid-stream clean catch urine", "parameters": "Colony count, organism identification, antibiotic sensitivity" },
+          { "name": "Blood Culture & Sensitivity",        "price": "₹ 1200", "turnaround": "48–72 hrs", "preparation": "No fasting required",    "parameters": "Aerobic & anaerobic culture, organism ID, antibiotic sensitivity" },
+          { "name": "Stool Routine & Microscopy",         "price": "₹ 150",  "turnaround": "4–6 hrs",   "preparation": "Fresh stool sample",     "parameters": "Physical, Chemical, Parasitological examination" },
+          { "name": "Stool Culture",                      "price": "₹ 650",  "turnaround": "48–72 hrs", "preparation": "Fresh stool in sterile container", "parameters": "Enteric pathogens culture & sensitivity" },
+          { "name": "Throat Swab Culture",                "price": "₹ 550",  "turnaround": "48 hrs",    "preparation": "Before antibiotics if possible", "parameters": "Culture & sensitivity for throat organisms" },
+          { "name": "Sputum AFB Smear",                   "price": "₹ 250",  "turnaround": "24 hrs",    "preparation": "Early morning deep cough sputum", "parameters": "Ziehl-Neelsen stain for AFB (Mycobacterium)" },
+          { "name": "Sputum Culture (Routine)",           "price": "₹ 650",  "turnaround": "48–72 hrs", "preparation": "Early morning deep cough sputum", "parameters": "Aerobic culture & sensitivity" },
+          { "name": "Gram Stain (Any Specimen)",          "price": "₹ 200",  "turnaround": "4–6 hrs",   "preparation": "Depends on specimen type",  "parameters": "Gram stain morphology, preliminary organism classification" },
+          { "name": "KOH Preparation (Fungal)",           "price": "₹ 200",  "turnaround": "4–6 hrs",   "preparation": "Depends on specimen type",  "parameters": "Fungal elements: hyphae, pseudohyphae, spores" }
+        ]
+      },
+      {
+        "category": "Gynaecology",
+        "tests": [
+          { "name": "FSH (Follicle Stimulating Hormone)", "price": "₹ 450",  "turnaround": "6 hrs",     "preparation": "Day 2–5 of cycle preferred", "parameters": "FSH (mIU/mL)" },
+          { "name": "LH (Luteinizing Hormone)",           "price": "₹ 450",  "turnaround": "6 hrs",     "preparation": "Day 2–5 of cycle preferred", "parameters": "LH (mIU/mL)" },
+          { "name": "Estradiol (E2)",                     "price": "₹ 550",  "turnaround": "6 hrs",     "preparation": "Day 2–5 of cycle preferred", "parameters": "Serum Estradiol (pg/mL)" },
+          { "name": "Progesterone",                       "price": "₹ 550",  "turnaround": "6 hrs",     "preparation": "Day 21 of cycle for luteal phase", "parameters": "Serum Progesterone (ng/mL)" },
+          { "name": "Prolactin",                          "price": "₹ 450",  "turnaround": "6 hrs",     "preparation": "2–3 hrs after waking, avoid stress", "parameters": "Serum Prolactin (ng/mL)" },
+          { "name": "Beta HCG (Quantitative)",            "price": "₹ 650",  "turnaround": "6 hrs",     "preparation": "No fasting required",    "parameters": "Serum β-hCG (mIU/mL)" },
+          { "name": "AMH (Anti-Mullerian Hormone)",       "price": "₹ 1800", "turnaround": "48 hrs",    "preparation": "Any day of cycle",       "parameters": "AMH (ng/mL) — ovarian reserve marker" },
+          { "name": "Testosterone (Total)",               "price": "₹ 550",  "turnaround": "6 hrs",     "preparation": "Morning sample preferred", "parameters": "Total Testosterone (ng/dL)" },
+          { "name": "DHEA-S",                             "price": "₹ 750",  "turnaround": "6 hrs",     "preparation": "No fasting required",    "parameters": "DHEA-Sulfate (µg/dL)" },
+          { "name": "17-OH Progesterone",                 "price": "₹ 950",  "turnaround": "24 hrs",    "preparation": "Day 2–5 of cycle preferred (morning)", "parameters": "17-Hydroxyprogesterone (ng/dL)" },
+          { "name": "SHBG",                               "price": "₹ 850",  "turnaround": "24 hrs",    "preparation": "No fasting required",    "parameters": "Sex Hormone Binding Globulin (nmol/L)" },
+          { "name": "Fertility Panel — Female",           "price": "₹ 2200", "turnaround": "24 hrs",    "preparation": "Day 2–5 of cycle preferred", "parameters": "FSH, LH, Estradiol, Prolactin, Progesterone, AMH" },
+          { "name": "Pap Smear",                          "price": "₹ 350",  "turnaround": "48 hrs",    "preparation": "Avoid intercourse/douching 24 hrs prior", "parameters": "Cervical cytology (Bethesda system reporting)" }
+        ]
+      },
+      {
+        "category": "Paediatrics",
+        "tests": [
+          { "name": "CBC with Differential (Paediatric)", "price": "₹ 350",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Hb, WBC, RBC, Platelets, PCV + full differential count" },
+          { "name": "Serum Bilirubin (Total & Direct)",   "price": "₹ 200",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Total, Direct, Indirect Bilirubin — neonatal jaundice assessment" },
+          { "name": "Neonatal TSH Screening",             "price": "₹ 380",  "turnaround": "6 hrs",     "preparation": "Heel prick (day 3–5 of life)", "parameters": "TSH (3rd generation) for congenital hypothyroidism screening" },
+          { "name": "Blood Culture & Sensitivity",        "price": "₹ 1200", "turnaround": "48–72 hrs", "preparation": "Before antibiotic therapy", "parameters": "Aerobic + anaerobic culture, organism identification, sensitivity" },
+          { "name": "Serum Calcium",                      "price": "₹ 200",  "turnaround": "4–6 hrs",   "preparation": "No fasting required",    "parameters": "Total + Ionized Calcium (mg/dL)" },
+          { "name": "G6PD Enzyme Assay",                  "price": "₹ 850",  "turnaround": "24 hrs",    "preparation": "No fasting required",    "parameters": "G6PD quantitative enzyme activity" },
+          { "name": "Fasting Blood Sugar (Paediatric)",   "price": "₹ 80",   "turnaround": "2–4 hrs",   "preparation": "4–6 hrs fasting (age dependent)", "parameters": "Fasting Glucose (mg/dL)" },
+          { "name": "Serum Immunoglobulins (IgG/IgM/IgA)","price": "₹ 1800","turnaround": "48 hrs",    "preparation": "No fasting required",    "parameters": "Quantitative IgG, IgM, IgA (mg/dL)" },
+          { "name": "17-OH Progesterone (Neonatal)",      "price": "₹ 950",  "turnaround": "24 hrs",    "preparation": "Day 3–5 of life",        "parameters": "17-OHP (ng/dL) — CAH (Congenital Adrenal Hyperplasia) screening" },
+          { "name": "Blood Lead Level",                   "price": "₹ 1500", "turnaround": "48–72 hrs", "preparation": "No fasting required",    "parameters": "Whole blood lead concentration (µg/dL)" }
+        ]
+      },
+      {
+        "category": "General",
+        "tests": [
+          { "name": "Full Body Checkup (Comprehensive)",  "price": "₹ 1499", "turnaround": "24 hrs",    "preparation": "10–12 hrs fasting required", "parameters": "60+ parameters: CBC, LFT, KFT, Lipid, Thyroid, Diabetes, Vitamins, Urine R&M" },
+          { "name": "Basic Health Panel",                 "price": "₹ 599",  "turnaround": "6 hrs",     "preparation": "8 hrs fasting required", "parameters": "CBC, FBS, LFT, KFT, Lipid Profile, Urine R&M" },
+          { "name": "Senior Citizen Health Panel",        "price": "₹ 1299", "turnaround": "24 hrs",    "preparation": "10–12 hrs fasting required", "parameters": "CBC, FBS, HbA1c, LFT, KFT, Lipid, Thyroid (TSH), Vitamin D, B12, Urine R&M, ECG" },
+          { "name": "Pre-Employment Health Panel",        "price": "₹ 799",  "turnaround": "6–8 hrs",   "preparation": "8 hrs fasting required", "parameters": "CBC, Blood Group, FBS, LFT, KFT, Chest X-Ray, Urine R&M, HBsAg, HIV" },
+          { "name": "Vitamin Panel (Comprehensive)",      "price": "₹ 2200", "turnaround": "24 hrs",    "preparation": "No fasting required",    "parameters": "Vitamin D (25-OH), Vitamin B12, Folate, Iron Studies (Serum Iron, TIBC, Ferritin)" },
+          { "name": "Vitamin D (25-OH)",                  "price": "₹ 750",  "turnaround": "24 hrs",    "preparation": "No fasting required",    "parameters": "25-Hydroxyvitamin D (ng/mL)" },
+          { "name": "Vitamin B12 (Cobalamin)",            "price": "₹ 650",  "turnaround": "24 hrs",    "preparation": "No fasting required",    "parameters": "Serum Vitamin B12 (pg/mL)" },
+          { "name": "Folate / Folic Acid",                "price": "₹ 650",  "turnaround": "24 hrs",    "preparation": "No fasting required",    "parameters": "Serum Folate (ng/mL)" },
+          { "name": "Iron Studies",                       "price": "₹ 850",  "turnaround": "24 hrs",    "preparation": "8 hrs fasting preferred", "parameters": "Serum Iron, TIBC, Transferrin Saturation, Serum Ferritin" },
+          { "name": "Blood Group & Rh Typing",            "price": "₹ 150",  "turnaround": "2–4 hrs",   "preparation": "No fasting required",    "parameters": "ABO blood group, Rh (D) typing" },
+          { "name": "Pre-Operative Panel",                "price": "₹ 950",  "turnaround": "6 hrs",     "preparation": "As advised by surgeon",  "parameters": "CBC, Blood Group, PT/INR, APTT, FBS, LFT, KFT, HBsAg, Anti-HCV, HIV, ECG" },
+          { "name": "Cancer Marker Panel",                "price": "₹ 3500", "turnaround": "48 hrs",    "preparation": "No fasting required",    "parameters": "PSA (males), CA-125 (females), CEA, CA 19-9, AFP, Beta HCG" }
+        ]
+      }
+    ]
+  }
+}

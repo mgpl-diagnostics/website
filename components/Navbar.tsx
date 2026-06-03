@@ -6,18 +6,15 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Phone } from 'lucide-react';
 import { siteConfig } from '@/lib/config';
-
-const navLinks = [
-  { label: 'Services', href: '#services' },
-  { label: 'Why MGPL', href: '#why-choose' },
-  { label: 'Home Collection', href: '#home-collection' },
-  { label: 'Reports', href: '#reports' },
-  { label: 'About', href: '#doctors' },
-];
+import { cfg } from '@/lib/config';
+import { useBookTest } from '@/context/BookTestContext';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { openDialog } = useBookTest();
+
+  const navLinks = cfg.nav.links;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -78,15 +75,15 @@ export default function Navbar() {
               <Phone className="w-4 h-4" />
               <span>{siteConfig.phone.primary}</span>
             </a>
-            <Link
-              href="#book"
+            <button
+              onClick={openDialog}
               className="px-5 py-2.5 text-white text-sm font-semibold rounded-full shadow-md hover:shadow-lg hover:-translate-y-px transition-all duration-200"
               style={{ background: 'var(--saffron)', fontFamily: 'var(--font-body)' }}
               onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--saffron-light)')}
               onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--saffron)')}
             >
-              Book a Test
-            </Link>
+              {cfg.nav.ctaLabel}
+            </button>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -126,14 +123,13 @@ export default function Navbar() {
                 </Link>
               ))}
               <div className="pt-2 pb-1 border-t" style={{ borderColor: 'var(--border)' }}>
-                <Link
-                  href="#book"
-                  onClick={() => setMenuOpen(false)}
+                <button
+                  onClick={() => { setMenuOpen(false); openDialog(); }}
                   className="block w-full text-center py-3 text-white font-semibold rounded-full mt-2 text-sm"
                   style={{ background: 'var(--saffron)', fontFamily: 'var(--font-body)' }}
                 >
-                  Book a Test
-                </Link>
+                  {cfg.nav.ctaLabel}
+                </button>
                 <a
                   href={siteConfig.phone.primaryTel}
                   className="block text-center py-2 text-sm font-medium mt-2"
