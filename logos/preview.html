@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MGPL Logo Concepts</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', -apple-system, Roboto, sans-serif; padding: 2rem 16px; max-width: 1200px; margin: 0 auto; transition: background-color .3s, color .3s; }
+  body.light { background: #FAF6EF; color: #1D1B18; }
+  body.dark { background: #0E1A33; color: #EEF0F5; }
+  .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; gap: 1rem; }
+  h1 { font-size: 1.5rem; font-weight: 600; }
+  h2 { font-size: 1.1rem; font-weight: 600; margin: 2.5rem 0 1rem; }
+  .toggle { padding: .5rem 1rem; border: 1px solid currentColor; border-radius: 6px; background: transparent; color: inherit; cursor: pointer; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); gap: 1.5rem; }
+  .card { border: 1px solid rgba(128,128,128,.3); border-radius: 12px; overflow: hidden; }
+  .card-img { display: flex; align-items: center; justify-content: center; padding: 1.5rem; min-height: 220px; }
+  body.light .card-img { background: #fff; } body.dark .card-img { background: #14264A; }
+  .card-img img { width: 100%; max-height: 220px; }
+  body.light .dark-only, body.dark .light-only { display: none; }
+  .card-label { padding: .75rem 1rem; font-size: .875rem; border-top: 1px solid rgba(128,128,128,.3); display: grid; gap: .25rem; }
+  .card-label span { opacity: .75; }
+  .favs { display: flex; gap: 2rem; flex-wrap: wrap; }
+  .fav-label { font-size: .8rem; font-weight: 500; margin-bottom: .5rem; }
+  .fav-row { display: flex; gap: 1rem; align-items: end; }
+  .fav-row div { display: grid; justify-items: center; gap: .25rem; }
+  small { font-size: .7rem; opacity: .6; }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 1rem; }
+  .sw { border-radius: 10px; overflow: hidden; border: 1px solid rgba(128,128,128,.3); }
+  .sw-color { height: 80px; }
+  .sw-meta { padding: .6rem .75rem; font-size: .78rem; display: grid; gap: .15rem; }
+  .sw-meta code { font-size: .75rem; opacity: .7; }
+</style>
+</head>
+<body class="light">
+  <div class="header">
+    <h1>MGPL Diagnostics — Logo Concepts</h1>
+    <button class="toggle" onclick="document.body.classList.toggle('dark');document.body.classList.toggle('light');this.textContent=document.body.classList.contains('dark')?'☀️ Light':'🌙 Dark';">🌙 Dark</button>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-img"><img class="light-only" src="concepts/concept-1.svg" alt="Lotus Drop"><img class="dark-only" src="concepts/concept-1-dark.svg" alt="Lotus Drop reversed"></div>
+      <div class="card-label"><b>1. Lotus Drop</b><span>A blood drop holding a saffron lotus and a marigold bindu. Medical precision with sacred warmth.</span></div>
+    </div>
+    <div class="card">
+      <div class="card-img"><img class="light-only" src="concepts/concept-2.svg" alt="Gayatri Sunrise"><img class="dark-only" src="concepts/concept-2-dark.svg" alt="Gayatri Sunrise reversed"></div>
+      <div class="card-label"><b>2. Gayatri Sunrise</b><span>A test tube rising in front of a saffron sun (Gayatri is the solar mantra). Reads as dawn, hope and the lab.</span></div>
+    </div>
+    <div class="card">
+      <div class="card-img"><img class="light-only" src="concepts/concept-3.svg" alt="Pulse Monogram"><img class="dark-only" src="concepts/concept-3-dark.svg" alt="Pulse Monogram reversed"></div>
+      <div class="card-label"><b>3. Pulse Monogram</b><span>An 'M' drawn as a heartbeat line on an ink tile. The most app-icon-ready and modern of the four.</span></div>
+    </div>
+    <div class="card">
+      <div class="card-img"><img class="light-only" src="concepts/concept-4.svg" alt="Helix Evolved"><img class="dark-only" src="concepts/concept-4-dark.svg" alt="Helix Evolved reversed"></div>
+      <div class="card-label"><b>4. Helix Evolved</b><span>Your current DNA helix, simplified into two bold strands. Keeps continuity with today's logo.</span></div>
+    </div>
+  </div>
+  <h2>Favicon size check</h2>
+  <div class="favs">
+    <div class="fav"><div class="fav-label">1. Lotus Drop</div><div class="fav-row">
+      <div><img src="concepts/concept-1-icon.svg" width="64" height="64" alt=""><small>64px</small></div><div><img src="concepts/concept-1-icon.svg" width="32" height="32" alt=""><small>32px</small></div><div><img src="concepts/concept-1-icon.svg" width="16" height="16" alt=""><small>16px</small></div>
+    </div></div>
+    <div class="fav"><div class="fav-label">2. Gayatri Sunrise</div><div class="fav-row">
+      <div><img src="concepts/concept-2-icon.svg" width="64" height="64" alt=""><small>64px</small></div><div><img src="concepts/concept-2-icon.svg" width="32" height="32" alt=""><small>32px</small></div><div><img src="concepts/concept-2-icon.svg" width="16" height="16" alt=""><small>16px</small></div>
+    </div></div>
+    <div class="fav"><div class="fav-label">3. Pulse Monogram</div><div class="fav-row">
+      <div><img src="concepts/concept-3-icon.svg" width="64" height="64" alt=""><small>64px</small></div><div><img src="concepts/concept-3-icon.svg" width="32" height="32" alt=""><small>32px</small></div><div><img src="concepts/concept-3-icon.svg" width="16" height="16" alt=""><small>16px</small></div>
+    </div></div>
+    <div class="fav"><div class="fav-label">4. Helix Evolved</div><div class="fav-row">
+      <div><img src="concepts/concept-4-icon.svg" width="64" height="64" alt=""><small>64px</small></div><div><img src="concepts/concept-4-icon.svg" width="32" height="32" alt=""><small>32px</small></div><div><img src="concepts/concept-4-icon.svg" width="16" height="16" alt=""><small>16px</small></div>
+    </div></div>
+  </div>
+  <h2>New palette — Saffron &amp; Neel</h2>
+  <div class="swatches">
+    <div class="sw"><div class="sw-color" style="background:#C2410C"></div><div class="sw-meta"><b>Sindoor Saffron</b><code>#C2410C · --saffron</code><span>CTAs, highlights · white text 5.2:1</span></div></div>
+    <div class="sw"><div class="sw-color" style="background:#A3360A"></div><div class="sw-meta"><b>Saffron Deep</b><code>#A3360A · --saffron-light</code><span>Button hover</span></div></div>
+    <div class="sw"><div class="sw-color" style="background:#E9A23B"></div><div class="sw-meta"><b>Marigold</b><code>#E9A23B · --amber</code><span>Accents, glows, bindu</span></div></div>
+    <div class="sw"><div class="sw-color" style="background:#14264A"></div><div class="sw-meta"><b>Neel Ink</b><code>#14264A · --navy</code><span>Headings, nav, footer</span></div></div>
+    <div class="sw"><div class="sw-color" style="background:#22396B"></div><div class="sw-meta"><b>Ink Mid</b><code>#22396B · --navy-mid</code><span>Secondary ink surfaces</span></div></div>
+    <div class="sw"><div class="sw-color" style="background:#1E7A4F"></div><div class="sw-meta"><b>Tulsi Green</b><code>#1E7A4F · --forest</code><span>Verified, reports ready</span></div></div>
+    <div class="sw"><div class="sw-color" style="background:#FAF6EF"></div><div class="sw-meta"><b>Sandstone</b><code>#FAF6EF · --cream</code><span>Page background</span></div></div>
+    <div class="sw"><div class="sw-color" style="background:#FFFDF9"></div><div class="sw-meta"><b>Warm White</b><code>#FFFDF9 · --warm-white</code><span>Cards</span></div></div>
+    <div class="sw"><div class="sw-color" style="background:#1D1B18"></div><div class="sw-meta"><b>Charcoal</b><code>#1D1B18 · --charcoal</code><span>Body text</span></div></div>
+    <div class="sw"><div class="sw-color" style="background:#675F54"></div><div class="sw-meta"><b>Clay Muted</b><code>#675F54 · --muted</code><span>Secondary text · 5.8:1</span></div></div>
+  </div>
+</body>
+</html>

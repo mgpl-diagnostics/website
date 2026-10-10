@@ -1,20 +1,25 @@
-import type { Metadata } from "next";
-import { Cormorant_Garamond, Manrope } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import Script from "next/script";
+import { Outfit, Geist, Geist_Mono } from "next/font/google";
 import Providers from "@/components/Providers";
 import "./globals.css";
 import { cfg } from "@/lib/config";
 
-const cormorant = Cormorant_Garamond({
+const outfit = Outfit({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-cormorant",
+  variable: "--font-outfit",
   display: "swap",
 });
 
-const manrope = Manrope({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-manrope",
+  variable: "--font-geist",
+  display: "swap",
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
   display: "swap",
 });
 
@@ -31,6 +36,14 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#FAF6EF",
+};
+
+// Runs before first paint: lets CSS pre-hide elements GSAP will reveal,
+// but only when the visitor hasn't asked for reduced motion.
+const motionPref = `try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('motion-ok')}catch(e){}`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -39,9 +52,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${manrope.variable}`}
+      className={`${outfit.variable} ${geist.variable} ${geistMono.variable}`}
+      suppressHydrationWarning
     >
       <body className="antialiased">
+        <Script id="motion-pref" strategy="beforeInteractive">
+          {motionPref}
+        </Script>
         <Providers>{children}</Providers>
       </body>
     </html>

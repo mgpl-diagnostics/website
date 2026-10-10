@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 512" role="img" aria-label="MGPL Diagnostics — Helix Evolved (reversed)">
+<title>MGPL Diagnostics — Helix Evolved (reversed)</title>
+<rect width="1024" height="512" fill="#14264A"/>
+<g id="icon">
+  <path d="M166.8 139.0 H233.2" stroke="#E9A23B" stroke-width="16" stroke-linecap="round"/>
+  <path d="M166.8 217.0 H233.2" stroke="#E9A23B" stroke-width="16" stroke-linecap="round"/>
+  <path d="M166.8 295.0 H233.2" stroke="#E9A23B" stroke-width="16" stroke-linecap="round"/>
+  <path d="M166.8 373.0 H233.2" stroke="#E9A23B" stroke-width="16" stroke-linecap="round"/>
+  <path d="M200.0 100.0 L210.2 106.5 L220.2 113.0 L229.8 119.5 L239.0 126.0 L247.5 132.5 L255.2 139.0 L261.9 145.5 L267.5 152.0 L272.1 158.5 L275.3 165.0 L277.3 171.5 L278.0 178.0 L277.3 184.5 L275.3 191.0 L272.1 197.5 L267.5 204.0 L261.9 210.5 L255.2 217.0 L247.5 223.5 L239.0 230.0 L229.8 236.5 L220.2 243.0 L210.2 249.5 L200.0 256.0 L189.8 262.5 L179.8 269.0 L170.2 275.5 L161.0 282.0 L152.5 288.5 L144.8 295.0 L138.1 301.5 L132.5 308.0 L127.9 314.5 L124.7 321.0 L122.7 327.5 L122.0 334.0 L122.7 340.5 L124.7 347.0 L127.9 353.5 L132.5 360.0 L138.1 366.5 L144.8 373.0 L152.5 379.5 L161.0 386.0 L170.2 392.5 L179.8 399.0 L189.8 405.5 L200.0 412.0" fill="none" stroke="#FAF6EF" stroke-width="30" stroke-linecap="round"/>
+  <path d="M200.0 100.0 L189.8 106.5 L179.8 113.0 L170.2 119.5 L161.0 126.0 L152.5 132.5 L144.8 139.0 L138.1 145.5 L132.5 152.0 L127.9 158.5 L124.7 165.0 L122.7 171.5 L122.0 178.0 L122.7 184.5 L124.7 191.0 L127.9 197.5 L132.5 204.0 L138.1 210.5 L144.8 217.0 L152.5 223.5 L161.0 230.0 L170.2 236.5 L179.8 243.0 L189.8 249.5 L200.0 256.0 L210.2 262.5 L220.2 269.0 L229.8 275.5 L239.0 282.0 L247.5 288.5 L255.2 295.0 L261.9 301.5 L267.5 308.0 L272.1 314.5 L275.3 321.0 L277.3 327.5 L278.0 334.0 L277.3 340.5 L275.3 347.0 L272.1 353.5 L267.5 360.0 L261.9 366.5 L255.2 373.0 L247.5 379.5 L239.0 386.0 L229.8 392.5 L220.2 399.0 L210.2 405.5 L200.0 412.0" fill="none" stroke="#C2410C" stroke-width="30" stroke-linecap="round"/>
+</g>
+<g id="wordmark">
+  <text x="392" y="292" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="172" font-weight="700" letter-spacing="-2" fill="#FAF6EF">M<tspan fill="#E9A23B">G</tspan>PL</text>
+  <text x="398" y="356" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="38" font-weight="600" letter-spacing="22" fill="#E9A23B">DIAGNOSTICS</text>
+  <text x="398" y="402" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" font-weight="500" letter-spacing="6" fill="#B9C2D6">MAA GAYATRI PATH LAB</text>
+</g>
+</svg>

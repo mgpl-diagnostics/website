@@ -96,7 +96,6 @@ export const siteConfig = {
   foundedYear: cfg.brand.foundedYear,
 
   logo:       cfg.assets.logo,
-  banner:     cfg.assets.banner,
 
   phone:      cfg.contact.phone,
   email:      cfg.contact.email,

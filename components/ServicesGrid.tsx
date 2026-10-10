@@ -1,130 +1,62 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import {
-  TestTube2, HeartPulse, Activity, Droplets, Home, Microscope,
-  ArrowRight, type LucideIcon,
-} from 'lucide-react';
-import { fadeUpVariant, staggerContainer } from '@/lib/motion';
 import { cfg } from '@/lib/config';
+import { scrollState } from '@/lib/scroll-store';
 import { useBookTest } from '@/context/BookTestContext';
-
-const ICON_MAP: Record<string, LucideIcon> = {
-  TestTube2, HeartPulse, Activity, Droplets, Home, Microscope,
-};
+import Icon from '@/components/ui/Icon';
+import SectionHeading from '@/components/ui/SectionHeading';
 
 const s = cfg.services;
 
+/**
+ * Editorial service index. Hovering/focusing a row lifts the matching
+ * test tube in the 3D rack on the left (scrollState.hoverService).
+ */
 export default function ServicesGrid() {
   const { openDialog } = useBookTest();
+  const focus = (i: number) => () => void (scrollState.hoverService = i);
+  const blur = () => void (scrollState.hoverService = -1);
 
   return (
-    <section
-      id="services"
-      className="section-pad"
-      style={{ background: 'var(--warm-white)' }}
-      aria-label="Our services"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="services" data-station aria-label="Our services" className="section-pad relative">
+      <div className="station-grid mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div data-side="right">
+          <SectionHeading heading={s.heading} accent={s.headingAccent} subtext={s.subtext} />
 
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-14 lg:mb-16"
-        >
-          <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: 'var(--saffron)', fontFamily: 'var(--font-body)' }}>
-            {s.sectionTag}
-          </p>
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight" style={{ color: 'var(--navy)' }}>
-              {s.heading}
-              <span className="block italic font-light" style={{ color: 'var(--saffron)' }}>{s.headingAccent}</span>
-            </h2>
-            <p className="text-base leading-relaxed max-w-sm" style={{ color: 'var(--muted)', fontFamily: 'var(--font-body)' }}>
-              {s.subtext}
-            </p>
-          </div>
-        </motion.div>
-
-        {/* Grid */}
-        <motion.div
-          variants={staggerContainer}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true, margin: '-60px' }}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
-        >
-          {s.items.map((service) => {
-            const Icon = ICON_MAP[service.icon] ?? TestTube2;
-            return (
-              <motion.article
-                key={service.title}
-                variants={fadeUpVariant}
-                className="group relative bg-white rounded-2xl p-7 cursor-pointer overflow-hidden transition-all duration-300 hover:-translate-y-1.5"
-                style={{ border: '1px solid var(--border)', boxShadow: '0 2px 8px rgba(13,43,94,0.06)' }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 16px 40px rgba(13,43,94,0.13)';
-                  e.currentTarget.style.borderColor = service.iconColor;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(13,43,94,0.06)';
-                  e.currentTarget.style.borderColor = 'var(--border)';
-                }}
-                aria-label={service.title}
-              >
-                {/* Hover glow */}
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl pointer-events-none"
-                  style={{ background: `radial-gradient(ellipse at top left, ${service.iconBg} 0%, transparent 65%)` }}
-                />
-
-                {/* Icon */}
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 relative z-10" style={{ background: service.iconBg }}>
-                  <Icon className="w-5.5 h-5.5" color={service.iconColor} />
-                </div>
-
-                {/* Content */}
-                <h3 className="font-display font-semibold text-xl mb-2 relative z-10" style={{ color: 'var(--navy)' }}>
-                  {service.title}
-                </h3>
-                <p className="text-sm leading-relaxed mb-5 relative z-10" style={{ color: 'var(--muted)', fontFamily: 'var(--font-body)' }}>
-                  {service.description}
-                </p>
-
-                {/* Book link */}
+          <ul className="border-t border-navy/10" onMouseLeave={blur}>
+            {s.items.map((service, i) => (
+              <li key={service.title} data-reveal className="border-b border-navy/10">
                 <button
+                  type="button"
                   onClick={openDialog}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold relative z-10 transition-all group-hover:gap-2.5 duration-200"
-                  style={{ color: service.iconColor, fontFamily: 'var(--font-body)' }}
+                  onMouseEnter={focus(i)}
+                  onFocus={focus(i)}
+                  onBlur={blur}
+                  className="group relative grid w-full grid-cols-[auto_1fr_auto] items-center gap-5 py-6 text-left"
                 >
-                  Book This Test
-                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 duration-200" />
+                  <span
+                    className="flex h-12 w-12 items-center justify-center rounded-2xl transition-transform duration-300 ease-out-strong group-hover:-rotate-6 group-hover:scale-105"
+                    style={{ background: service.iconBg, color: service.iconColor }}
+                  >
+                    <Icon name={service.icon} size={26} />
+                  </span>
+                  <span>
+                    <span className="block font-display text-2xl font-semibold text-navy transition-colors duration-200 group-hover:text-saffron">
+                      {service.title}
+                    </span>
+                    <span className="mt-1 block max-w-[52ch] text-sm leading-relaxed text-muted">{service.description}</span>
+                  </span>
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-navy/15 text-navy transition-[background-color,color,border-color,transform] duration-300 ease-out-strong group-hover:-rotate-45 group-hover:border-saffron group-hover:bg-saffron group-hover:text-white">
+                    <Icon name="ArrowRight" size={16} weight="bold" />
+                    <span className="sr-only">Book {service.title}</span>
+                  </span>
+                  {/* hover rule grows from the left */}
+                  <span aria-hidden="true" className="absolute -bottom-px left-0 h-px w-full origin-left scale-x-0 bg-saffron transition-transform duration-500 ease-out-strong group-hover:scale-x-100" />
                 </button>
-              </motion.article>
-            );
-          })}
-        </motion.div>
-
-        {/* Footer CTA */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-center mt-10"
-        >
-          <button
-            onClick={openDialog}
-            className="inline-flex items-center gap-2 px-8 py-3.5 text-white text-sm font-semibold rounded-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
-            style={{ background: 'var(--navy)', fontFamily: 'var(--font-body)' }}
-          >
-            {s.viewAllLabel}
-            <ArrowRight className="w-4 h-4" />
-          </button>
-        </motion.div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

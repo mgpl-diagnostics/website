@@ -1,57 +1,70 @@
 @import "tailwindcss";
 
-/* ─── Brand Design Tokens ─────────────────────────────────── */
+/* ─── Brand Design Tokens — "Saffron & Neel" ───────────────── */
 :root {
-  --saffron: #E65100;
-  --saffron-light: #FF6D00;
-  --saffron-muted: #FFF0E8;
-  --amber: #FF8F00;
-  --navy: #0D2B5E;
-  --navy-mid: #163574;
-  --navy-pale: #EDF0F8;
-  --cream: #FAF8F5;
-  --warm-white: #FDFCFA;
-  --forest: #1B8A5A;
-  --forest-pale: #EBF7F0;
-  --charcoal: #1A1A2E;
-  --muted: #64748B;
-  --border: #E5E3DD;
+  --saffron: #C2410C;        /* Sindoor saffron — CTAs, white text 5.2:1 */
+  --saffron-light: #A3360A;  /* CTA hover (deeper, keeps white text legible) */
+  --saffron-muted: #FDEEE3;
+  --amber: #E9A23B;          /* Marigold — accents, glows */
+  --navy: #14264A;           /* Neel ink — headings, nav, footer */
+  --navy-mid: #22396B;
+  --navy-pale: #ECEFF6;
+  --cream: #FAF6EF;           /* Sandstone — page background */
+  --warm-white: #FFFDF9;
+  --forest: #1E7A4F;          /* Tulsi green — verified states */
+  --forest-pale: #E8F4EC;
+  --charcoal: #1D1B18;
+  --muted: #675F54;
+  --border: #E6DED0;
+
+  /* Motion — strong curves from the Emil Kowalski / animate skill tables */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
-/* ─── Tailwind v4 @theme Tokens ────────────────────────────── */
-@theme {
-  --font-display: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
-  --font-body: var(--font-manrope), 'Manrope', system-ui, sans-serif;
+/* ─── Tailwind v4 theme bridge ─────────────────────────────── */
+@theme inline {
+  --font-display: var(--font-outfit), system-ui, sans-serif;
+  --font-body: var(--font-geist), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-float-slow: float 9s ease-in-out 2s infinite;
+  --color-saffron: var(--saffron);
+  --color-saffron-deep: var(--saffron-light);
+  --color-saffron-muted: var(--saffron-muted);
+  --color-amber: var(--amber);
+  --color-navy: var(--navy);
+  --color-navy-mid: var(--navy-mid);
+  --color-navy-pale: var(--navy-pale);
+  --color-cream: var(--cream);
+  --color-warm-white: var(--warm-white);
+  --color-forest: var(--forest);
+  --color-forest-pale: var(--forest-pale);
+  --color-charcoal: var(--charcoal);
+  --color-muted: var(--muted);
+  --color-line: var(--border);
+
+  --ease-out-strong: var(--ease-out);
+  --ease-drawer: var(--ease-drawer);
+
   --animate-pulse-cta: pulse-cta 2.5s ease-in-out infinite;
-  --animate-shimmer: shimmer 3s linear infinite;
-  --animate-spin-slow: spin 12s linear infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-14px); }
+  --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
 }
 
 @keyframes pulse-cta {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(230, 81, 0, 0.35); }
-  50% { box-shadow: 0 0 0 12px rgba(230, 81, 0, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(194, 65, 12, 0.35); }
+  50% { box-shadow: 0 0 0 12px rgba(194, 65, 12, 0); }
 }
 
-@keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.85); }
 }
 
-/* ─── Base Styles ─────────────────────────────────────────── */
+/* ─── Base ─────────────────────────────────────────────────── */
 *, ::before, ::after { box-sizing: border-box; }
 
-html {
-  scroll-behavior: smooth;
-  font-size: 16px;
-}
+html { font-size: 16px; }
 
 body {
   font-family: var(--font-body);
@@ -62,39 +75,95 @@ body {
   overflow-x: hidden;
 }
 
-/* ─── Typography ──────────────────────────────────────────── */
-.font-display { font-family: var(--font-display); }
+.font-display { font-family: var(--font-display); letter-spacing: -0.02em; }
 .font-body { font-family: var(--font-body); }
+.font-mono { font-family: var(--font-mono); }
 
-/* ─── Scrollbar ────────────────────────────────────────────── */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--cream); }
-::-webkit-scrollbar-thumb { background: var(--navy); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: var(--saffron); }
-
-/* ─── Selection ────────────────────────────────────────────── */
 ::selection { background: var(--saffron); color: #fff; }
+html { scrollbar-color: var(--navy) var(--cream); caret-color: var(--saffron); }
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--navy); border-radius: 8px; border: 2px solid var(--cream); }
+a { text-underline-offset: 0.2em; }
+.tabular-nums, .font-mono { font-variant-numeric: tabular-nums; }
 
-/* ─── Reduced Motion ────────────────────────────────────────── */
+:focus-visible { outline: 2px solid var(--saffron); outline-offset: 3px; border-radius: 6px; }
+
+/* ─── Layout helpers ───────────────────────────────────────── */
+.section-pad { padding-top: 4.5rem; padding-bottom: 4.5rem; }
+@media (min-width: 1024px) { .section-pad { padding-top: 6rem; padding-bottom: 6rem; } }
+
+/* Station layout: content column beside the 3D object.
+   data-side="left|right" = where the CONTENT sits on ≥1024px. */
+.station-grid { display: grid; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 1024px) {
+  .station-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 2rem; }
+  .station-grid > [data-side="left"] { grid-column: 1 / span 7; }
+  .station-grid > [data-side="right"] { grid-column: 6 / span 7; }
+  .station-grid > [data-side="right-narrow"] { grid-column: 7 / span 6; }
+}
+
+/* Content sits above the fixed 3D canvas */
+#smooth-wrapper { position: relative; z-index: 2; }
+
+/* ─── Motion pre-states ────────────────────────────────────────
+   html.motion-ok is set by an inline script before paint when the
+   user has not asked for reduced motion. GSAP then reveals these.  */
+html.motion-ok [data-reveal],
+html.motion-ok [data-hero] { visibility: hidden; }
+
+/* ─── 3D card tilt ─────────────────────────────────────────── */
+.tilt-stage { perspective: 1100px; }
+.tilt { transform-style: preserve-3d; will-change: transform; }
+/* preserve-3d is not inherited: every layer between .tilt and a
+   [data-depth] child must keep it (and must not blur/clip, which flattens) */
+.tilt, .tilt * { transform-style: preserve-3d; }
+.tilt [data-depth="1"] { transform: translateZ(18px); }
+.tilt [data-depth="2"] { transform: translateZ(42px); }
+.tilt [data-depth="3"] { transform: translateZ(64px); }
+
+
+/* Accordion: animate grid rows, no height measuring */
+.collapse-grid {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 260ms var(--ease-out);
+}
+.collapse-grid[data-open="true"] { grid-template-rows: 1fr; }
+.collapse-grid > * { overflow: hidden; }
+
+/* Hover affordances only for real pointers (touch fires false hovers) */
+@media (hover: hover) and (pointer: fine) {
+  .lift { transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out); }
+  .lift:hover { transform: translateY(-2px); }
+}
+.press { transition: transform 140ms var(--ease-out); }
+.press:active { transform: scale(0.97); }
+
+/* ─── Reduced motion: gentler, not zero ────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  *, ::before, ::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .collapse-grid { transition: none; }
 }
 
-/* ─── Utility Classes ───────────────────────────────────────── */
-.section-pad { padding-top: 5rem; padding-bottom: 5rem; }
-@media (min-width: 1024px) { .section-pad { padding-top: 7rem; padding-bottom: 7rem; } }
-
-.grain-overlay {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+/* ─── Apple HIG: material & contrast preferences ───────────── */
+@media (prefers-reduced-transparency: reduce) {
+  .glass, [class*="backdrop-blur"] { backdrop-filter: none !important; background-color: var(--warm-white) !important; }
+}
+@media (prefers-contrast: more) {
+  :root { --muted: #4A443C; --border: #9C9282; }
+  .glass { background-color: #fff !important; border-color: var(--navy) !important; }
 }
 
-.text-saffron { color: var(--saffron); }
-.text-navy { color: var(--navy); }
-.text-forest { color: var(--forest); }
-.text-muted-brand { color: var(--muted); }
-.bg-saffron { background-color: var(--saffron); }
-.bg-navy { background-color: var(--navy); }
-.bg-forest { background-color: var(--forest); }
-.bg-cream { background-color: var(--cream); }
-.border-saffron { border-color: var(--saffron); }
-.border-navy { border-color: var(--navy); }
+/* Translucent chrome: light catching the top edge of the material */
+.glass {
+  background-color: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 8px 32px -12px rgba(20, 38, 74, 0.2);
+}

@@ -1,306 +1,227 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import {
-  TestTube2, Heart, Activity, Droplets, Microscope, Stethoscope,
-  HeartPulse, Zap, Shield, Users, ArrowLeft, Clock, ChevronDown, ChevronUp,
-  type LucideIcon,
-} from 'lucide-react';
+import { useMemo, useRef, useState } from 'react';
 import { cfg } from '@/lib/config';
+import { gsap, ScrollTrigger, useGSAP } from '@/lib/gsap';
+import { scrollState } from '@/lib/scroll-store';
 import { useBookTest } from '@/context/BookTestContext';
-
-const ICON_MAP: Record<string, LucideIcon> = {
-  TestTube2, Heart, Activity, Droplets, Microscope,
-  Stethoscope, HeartPulse, Zap, Shield, Users,
-};
+import Icon from '@/components/ui/Icon';
+import SectionHeading from '@/components/ui/SectionHeading';
 
 const tc = cfg.testCatalogue;
 
 export default function TestCategories() {
+  const root = useRef<HTMLElement>(null);
+  const list = useRef<HTMLDivElement>(null);
   const { openDialog } = useBookTest();
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const [expandedTest, setExpandedTest] = useState<string | null>(null);
+  const [active, setActive] = useState<string | null>(null);
+  const [query, setQuery] = useState('');
+  const [expanded, setExpanded] = useState<string | null>(null);
 
-  const activeCategoryData = tc.allTests.find((g) => g.category === activeCategory);
-  const activeCategoryConfig = tc.categories.find((c) => c.label === activeCategory);
+  const q = query.trim().toLowerCase();
+  const results = useMemo(() => {
+    if (q) {
+      return tc.allTests.flatMap((g) => g.tests.filter((t) => t.name.toLowerCase().includes(q)).map((t) => ({ ...t, category: g.category })));
+    }
+    if (active) {
+      const g = tc.allTests.find((x) => x.category === active);
+      return (g?.tests ?? []).map((t) => ({ ...t, category: active }));
+    }
+    return null;
+  }, [q, active]);
+
+  const catColor = (label: string) => tc.categories.find((c) => c.label === label)?.color ?? 'var(--navy)';
+
+  // Re-run a short stagger whenever the visible list changes, then re-measure triggers below
+  useGSAP(
+    () => {
+      const rows = list.current?.querySelectorAll('[data-row]');
+      if (rows?.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        gsap.fromTo(rows, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.45, stagger: 0.03, overwrite: true });
+      }
+      ScrollTrigger.refresh();
+    },
+    { scope: root, dependencies: [active, q], revertOnUpdate: false },
+  );
+
+  const choose = (label: string) => {
+    setQuery('');
+    setExpanded(null);
+    setActive((cur) => {
+      const next = cur === label ? null : label;
+      scrollState.bodyRegion = next; // body scan focuses the organ for this category
+      return next;
+    });
+  };
 
   return (
-    <section
-      id="test-categories"
-      className="section-pad"
-      style={{ background: 'var(--cream)' }}
-      aria-label="Test categories"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={root} id="test-categories" data-station aria-label="Test categories" className="section-pad relative">
+      <div className="station-grid mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div data-side="left">
+        <SectionHeading heading={tc.heading} accent={tc.headingAccent} stack={false} />
 
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
-          className="mb-12"
-        >
-          <p className="text-xs font-semibold tracking-widest uppercase mb-3"
-            style={{ color: 'var(--saffron)', fontFamily: 'var(--font-body)' }}>
-            {tc.sectionTag}
-          </p>
-          <h2 className="font-display text-4xl sm:text-5xl font-bold" style={{ color: 'var(--navy)' }}>
-            {tc.heading}{' '}
-            <span className="italic font-light" style={{ color: 'var(--saffron)' }}>{tc.headingAccent}</span>
-          </h2>
-        </motion.div>
-
-        {/* Category chips */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="flex flex-wrap gap-3 mb-14"
-        >
-          {tc.categories.map((cat, i) => {
-            const Icon = ICON_MAP[cat.icon] ?? TestTube2;
-            const isActive = activeCategory === cat.label;
-            return (
-              <motion.button
-                key={cat.label}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.35, delay: i * 0.04 }}
-                onClick={() => {
-                  setActiveCategory(isActive ? null : cat.label);
-                  setExpandedTest(null);
-                }}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md cursor-pointer"
-                style={{
-                  background: isActive ? cat.color : 'white',
-                  border: `1px solid ${isActive ? cat.color : 'var(--border)'}`,
-                  color: isActive ? '#fff' : 'var(--charcoal)',
-                  fontFamily: 'var(--font-body)',
-                  boxShadow: isActive ? `0 4px 16px ${cat.color}44` : 'none',
-                }}
-                onMouseEnter={(e) => {
-                  if (!isActive) {
-                    e.currentTarget.style.borderColor = cat.color;
-                    e.currentTarget.style.color = cat.color;
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isActive) {
-                    e.currentTarget.style.borderColor = 'var(--border)';
-                    e.currentTarget.style.color = 'var(--charcoal)';
-                  }
-                }}
-              >
-                <span className="w-6 h-6 rounded-full flex items-center justify-center shrink-0"
-                  style={{ background: isActive ? 'rgba(255,255,255,0.25)' : cat.bg }}>
-                  <Icon className="w-3 h-3" color={isActive ? '#fff' : cat.color} />
-                </span>
-                {cat.label}
-                {activeCategoryData && isActive && (
-                  <span className="text-[10px] font-bold ml-0.5 opacity-80">
-                    ({activeCategoryData.tests.length})
-                  </span>
-                )}
-              </motion.button>
-            );
-          })}
-        </motion.div>
-
-        {/* ── All Tests for selected category ──────────────────── */}
-        <AnimatePresence mode="wait">
-          {activeCategory && activeCategoryData && activeCategoryConfig ? (
-            <motion.div
-              key={activeCategory}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.35, ease: 'easeOut' }}
-            >
-              {/* Section header */}
-              <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center"
-                    style={{ background: activeCategoryConfig.bg }}>
-                    {(() => { const Icon = ICON_MAP[activeCategoryConfig.icon] ?? TestTube2; return <Icon className="w-5 h-5" color={activeCategoryConfig.color} />; })()}
-                  </div>
-                  <div>
-                    <h3 className="font-display font-semibold text-2xl" style={{ color: 'var(--navy)' }}>
-                      {tc.allTestsHeading} — {activeCategory}
-                    </h3>
-                    <p className="text-xs" style={{ color: 'var(--muted)', fontFamily: 'var(--font-body)' }}>
-                      {activeCategoryData.tests.length} {tc.allTestsSubtext}
-                    </p>
-                  </div>
-                </div>
+        <div data-reveal className="mb-10 flex flex-col gap-5">
+          {/* Category chips */}
+          <div role="group" aria-label="Filter by category" className="flex flex-wrap gap-2">
+            {tc.categories.map((cat) => {
+              const on = active === cat.label && !q;
+              return (
                 <button
-                  onClick={() => { setActiveCategory(null); setExpandedTest(null); }}
-                  className="inline-flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-full transition-colors"
-                  style={{ color: 'var(--navy)', background: 'var(--navy-pale)', fontFamily: 'var(--font-body)' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = '#D5DCF0'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--navy-pale)'; }}
+                  key={cat.label}
+                  type="button"
+                  aria-pressed={on}
+                  onClick={() => choose(cat.label)}
+                  className="press flex items-center gap-2 rounded-full border py-1.5 pl-1.5 pr-4 text-sm font-medium transition-colors duration-200"
+                  style={{
+                    background: on ? cat.color : 'rgba(255,255,255,0.75)',
+                    borderColor: on ? cat.color : 'var(--border)',
+                    color: on ? '#fff' : 'var(--charcoal)',
+                  }}
                 >
-                  <ArrowLeft className="w-3.5 h-3.5" />
-                  {tc.backLabel}
-                </button>
-              </div>
-
-              {/* Test cards */}
-              <div className="space-y-2">
-                {activeCategoryData.tests.map((test, i) => {
-                  const isExpanded = expandedTest === test.name;
-                  return (
-                    <motion.div
-                      key={test.name}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3, delay: i * 0.03 }}
-                      className="rounded-xl bg-white overflow-hidden transition-all duration-200"
-                      style={{
-                        border: `1px solid ${isExpanded ? activeCategoryConfig.color : 'var(--border)'}`,
-                        boxShadow: isExpanded ? `0 4px 20px ${activeCategoryConfig.color}22` : 'none',
-                      }}
-                    >
-                      {/* Main row */}
-                      <div className="flex items-center gap-3 p-4">
-                        {/* Name + tag */}
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-semibold" style={{ color: 'var(--charcoal)', fontFamily: 'var(--font-body)' }}>
-                            {test.name}
-                          </p>
-                          <div className="flex items-center gap-2 mt-1">
-                            <span className="inline-flex items-center gap-1 text-[10px]" style={{ color: 'var(--muted)', fontFamily: 'var(--font-body)' }}>
-                              <Clock className="w-3 h-3" />
-                              {test.turnaround}
-                            </span>
-                            {test.preparation && (
-                              <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ background: 'var(--cream)', color: 'var(--muted)', fontFamily: 'var(--font-body)' }}>
-                                {test.preparation}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Price + actions */}
-                        <div className="flex items-center gap-3 shrink-0">
-                          <p className="text-base font-bold" style={{ color: 'var(--navy)', fontFamily: 'var(--font-display)' }}>
-                            {test.price}
-                          </p>
-                          <button
-                            onClick={openDialog}
-                            className="text-[10px] font-semibold px-2.5 py-1 rounded-full transition-colors"
-                            style={{ background: 'var(--navy-pale)', color: 'var(--navy)', fontFamily: 'var(--font-body)' }}
-                            onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--navy)'; e.currentTarget.style.color = '#fff'; }}
-                            onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--navy-pale)'; e.currentTarget.style.color = 'var(--navy)'; }}
-                          >
-                            {tc.bookLabel}
-                          </button>
-                          {test.parameters && (
-                            <button
-                              onClick={() => setExpandedTest(isExpanded ? null : test.name)}
-                              className="w-7 h-7 rounded-full flex items-center justify-center transition-colors"
-                              style={{ background: isExpanded ? activeCategoryConfig.color : 'var(--cream)', color: isExpanded ? '#fff' : 'var(--muted)' }}
-                              aria-label={isExpanded ? 'Hide details' : 'Show details'}
-                            >
-                              {isExpanded
-                                ? <ChevronUp className="w-3.5 h-3.5" />
-                                : <ChevronDown className="w-3.5 h-3.5" />}
-                            </button>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Expandable parameters */}
-                      <AnimatePresence initial={false}>
-                        {isExpanded && test.parameters && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: 'auto', opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.22, ease: 'easeOut' }}
-                            className="overflow-hidden"
-                          >
-                            <div className="px-4 pb-4 pt-1" style={{ borderTop: `1px dashed ${activeCategoryConfig.color}44` }}>
-                              <p className="text-[10px] font-semibold uppercase tracking-wider mb-1"
-                                style={{ color: activeCategoryConfig.color, fontFamily: 'var(--font-body)' }}>
-                                {tc.parametersLabel}
-                              </p>
-                              <p className="text-xs leading-relaxed" style={{ color: 'var(--muted)', fontFamily: 'var(--font-body)' }}>
-                                {test.parameters}
-                              </p>
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </motion.div>
-
-          ) : (
-            /* ── Popular Tests (default view) ─────────────────── */
-            <motion.div
-              key="popular"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <h3 className="font-display font-semibold text-2xl mb-6" style={{ color: 'var(--navy)' }}>
-                {tc.popularTestsHeading}
-              </h3>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {tc.popularTests.map((test, i) => (
-                  <motion.div
-                    key={test.name}
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.45, delay: i * 0.07 }}
-                    className="group flex items-center justify-between p-4 rounded-xl bg-white transition-all duration-200 hover:shadow-md"
-                    style={{ border: '1px solid var(--border)' }}
-                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--navy)'; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; }}
+                  <span
+                    className="flex h-7 w-7 items-center justify-center rounded-full"
+                    style={{ background: on ? 'rgba(255,255,255,0.22)' : cat.bg, color: on ? '#fff' : cat.color }}
                   >
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-                          style={{ background: 'var(--saffron-muted)', color: 'var(--saffron)' }}>
-                          {test.tag}
-                        </span>
-                      </div>
-                      <p className="text-sm font-semibold truncate" style={{ color: 'var(--charcoal)', fontFamily: 'var(--font-body)' }}>
-                        {test.name}
-                      </p>
-                      <p className="text-xs mt-0.5" style={{ color: 'var(--muted)', fontFamily: 'var(--font-body)' }}>
-                        ⏱ {test.turnaround}
+                    <Icon name={cat.icon} size={15} />
+                  </span>
+                  {cat.label}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Search */}
+          <label className="relative block w-full sm:max-w-sm">
+            <span className="sr-only">Search tests</span>
+            <Icon name="Microscope" size={18} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted" />
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setExpanded(null);
+                scrollState.bodyRegion = null;
+              }}
+              placeholder="Search a test, e.g. HbA1c"
+              className="w-full rounded-full border border-line bg-white/85 py-3 pl-11 pr-4 text-sm text-charcoal outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-muted/70 focus:border-saffron focus:shadow-[0_0_0_4px_rgba(194,65,12,0.12)]"
+            />
+          </label>
+        </div>
+
+        <div ref={list} aria-live="polite">
+          {results === null ? (
+            <>
+              <h3 className="mb-5 font-display text-2xl font-semibold text-navy">{tc.popularTestsHeading}</h3>
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {tc.popularTests.map((t) => (
+                  <li key={t.name} data-row className="lift flex items-center justify-between gap-3 rounded-2xl bg-white p-5 shadow-[0_14px_34px_-22px_rgba(20,38,74,0.45)]">
+                    <div className="min-w-0">
+                      <span className="mb-1.5 inline-block rounded-full bg-saffron-muted px-2 py-0.5 text-[10px] font-semibold text-saffron">{t.tag}</span>
+                      <p className="truncate text-sm font-semibold text-charcoal">{t.name}</p>
+                      <p className="mt-1 flex items-center gap-1 text-xs text-muted">
+                        <Icon name="Clock" size={12} /> {t.turnaround}
                       </p>
                     </div>
-                    <div className="text-right shrink-0 ml-3">
-                      <p className="text-base font-bold" style={{ color: 'var(--navy)', fontFamily: 'var(--font-display)' }}>
-                        {test.price}
-                      </p>
-                      <button
-                        onClick={openDialog}
-                        className="text-[10px] font-semibold mt-0.5 px-2.5 py-1 rounded-full transition-colors"
-                        style={{ background: 'var(--navy-pale)', color: 'var(--navy)', fontFamily: 'var(--font-body)' }}
-                        onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--navy)'; e.currentTarget.style.color = '#fff'; }}
-                        onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--navy-pale)'; e.currentTarget.style.color = 'var(--navy)'; }}
-                      >
+                    <div className="shrink-0 text-right">
+                      <p className="font-mono text-base font-semibold text-navy">{t.price}</p>
+                      <button type="button" onClick={openDialog} className="press mt-1 rounded-full bg-navy-pale px-3 py-1 text-[11px] font-semibold text-navy transition-colors duration-200 hover:bg-navy hover:text-white">
                         {tc.bookLabel}
                       </button>
                     </div>
-                  </motion.div>
+                  </li>
                 ))}
+              </ul>
+            </>
+          ) : (
+            <>
+              <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+                <h3 className="font-display text-2xl font-semibold text-navy">
+                  {q ? `Results for “${query.trim()}”` : `${tc.allTestsHeading}: ${active}`}
+                  <span className="ml-2 font-mono text-sm font-normal text-muted">{results.length}</span>
+                </h3>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActive(null);
+                    setQuery('');
+                    scrollState.bodyRegion = null;
+                  }}
+                  className="press inline-flex items-center gap-1.5 rounded-full bg-navy-pale px-4 py-2 text-sm font-medium text-navy"
+                >
+                  <Icon name="ArrowLeft" size={15} /> {tc.backLabel}
+                </button>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
 
+              {results.length === 0 ? (
+                <p className="rounded-2xl bg-white p-8 text-center text-sm text-muted shadow-[0_14px_34px_-22px_rgba(20,38,74,0.45)]">
+                  No test matches that name. Call us and we&apos;ll help you find it.
+                </p>
+              ) : (
+                <ul className="space-y-2">
+                  {results.map((t) => {
+                    const id = `${t.category}-${t.name}`;
+                    const open = expanded === id;
+                    const color = catColor(t.category);
+                    return (
+                      <li
+                        key={id}
+                        data-row
+                        className="overflow-hidden rounded-2xl bg-white/95 ring-1 transition-shadow duration-200"
+                        style={{ ['--tw-ring-color' as string]: open ? color : 'rgba(20,38,74,0.06)' }}
+                      >
+                        <div className="flex items-center gap-3 p-4">
+                          <div className="min-w-0 flex-1">
+                            <p className="text-sm font-semibold text-charcoal">{t.name}</p>
+                            <div className="mt-1 flex flex-wrap items-center gap-2 text-[11px] text-muted">
+                              <span className="inline-flex items-center gap-1">
+                                <Icon name="Clock" size={12} /> {t.turnaround}
+                              </span>
+                              {t.preparation && <span className="rounded-full bg-cream px-2 py-0.5">{t.preparation}</span>}
+                              {q && (
+                                <span className="rounded-full px-2 py-0.5 font-medium" style={{ color, background: 'var(--cream)' }}>
+                                  {t.category}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <p className="shrink-0 font-mono text-base font-semibold text-navy">{t.price}</p>
+                          <button type="button" onClick={openDialog} className="press shrink-0 rounded-full bg-navy-pale px-3 py-1 text-[11px] font-semibold text-navy transition-colors duration-200 hover:bg-navy hover:text-white">
+                            {tc.bookLabel}
+                          </button>
+                          {t.parameters && (
+                            <button
+                              type="button"
+                              onClick={() => setExpanded(open ? null : id)}
+                              aria-expanded={open}
+                              aria-label={open ? 'Hide parameters' : 'Show parameters'}
+                              className="press flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-colors duration-200"
+                              style={{ background: open ? color : 'var(--cream)', color: open ? '#fff' : 'var(--muted)' }}
+                            >
+                              <Icon name="CaretDown" size={14} weight="bold" className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+                            </button>
+                          )}
+                        </div>
+                        {t.parameters && (
+                          <div className="collapse-grid" data-open={open}>
+                            <div>
+                              <div className="border-t border-dashed px-4 pb-4 pt-3" style={{ borderColor: `${color}55` }}>
+                                <p className="mb-1 text-[10px] font-semibold uppercase tracking-wider" style={{ color }}>
+                                  {tc.parametersLabel}
+                                </p>
+                                <p className="text-xs leading-relaxed text-muted">{t.parameters}</p>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </>
+          )}
+        </div>
+        </div>
       </div>
     </section>
   );

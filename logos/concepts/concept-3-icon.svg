@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="16 76 368 368" role="img" aria-label="MGPL — Pulse Monogram icon">
+<title>MGPL — Pulse Monogram icon</title>
+<g id="icon">
+  <rect x="64" y="120" width="272" height="272" rx="72" fill="#14264A"/>
+  <path d="M96 304 H132 L156 196 L200 292 L244 196 L268 304 H304" fill="none" stroke="#FFFDF9" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="290" cy="172" r="18" fill="#C2410C"/>
+</g>
+</svg>
