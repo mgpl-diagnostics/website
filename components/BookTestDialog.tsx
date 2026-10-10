@@ -1,190 +1,117 @@
 'use client';
 
-import { useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, MessageCircle, Phone, ArrowRight } from 'lucide-react';
-import { useBookTest } from '@/context/BookTestContext';
+import { useEffect, useRef } from 'react';
 import { cfg } from '@/lib/config';
+import { gsap, prefersReducedMotion, setScrollLocked } from '@/lib/gsap';
+import { useBookTest } from '@/context/BookTestContext';
+import Icon from '@/components/ui/Icon';
 
 const d = cfg.bookTestDialog;
 
 export default function BookTestDialog() {
   const { isOpen, closeDialog } = useBookTest();
+  const dialog = useRef<HTMLDialogElement>(null);
+  const panel = useRef<HTMLDivElement>(null);
 
-  // Close on Escape
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') closeDialog(); };
-    document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
-  }, [closeDialog]);
+    const el = dialog.current;
+    const p = panel.current;
+    if (!el || !p) return;
+    const reduce = prefersReducedMotion();
 
-  // Lock body scroll while open
-  useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    if (isOpen && !el.open) {
+      el.showModal();
+      setScrollLocked(true);
+      gsap.fromTo(el, { '--scrim': 0 }, { '--scrim': 1, duration: reduce ? 0 : 0.3, ease: 'ui-out' });
+      gsap.fromTo(
+        p,
+        { autoAlpha: 0, y: reduce ? 0 : 24, scale: reduce ? 1 : 0.96, filter: reduce ? 'none' : 'blur(8px)' },
+        { autoAlpha: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: reduce ? 0.15 : 0.45, ease: 'ui-drawer', clearProps: 'filter' },
+      );
+    } else if (!isOpen && el.open) {
+      // exit along the entry path
+      gsap.to(el, { '--scrim': 0, duration: 0.2 });
+      gsap.to(p, {
+        autoAlpha: 0,
+        y: reduce ? 0 : 24,
+        scale: reduce ? 1 : 0.96,
+        duration: reduce ? 0.1 : 0.22,
+        ease: 'ui-out',
+        onComplete: () => {
+          el.close();
+          setScrollLocked(false);
+        },
+      });
+    }
   }, [isOpen]);
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        /* Single overlay — clicking it (outside the card) closes the dialog */
-        <motion.div
-          key="overlay"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
-          style={{ background: 'rgba(13,43,94,0.55)', backdropFilter: 'blur(4px)' }}
-          onClick={closeDialog}
-          aria-hidden="true"
-        >
-          {/* Card — stop clicks from bubbling to the overlay */}
-          <motion.div
-            role="dialog"
-            aria-modal="true"
-            aria-label={d.heading}
-            initial={{ scale: 0.93, y: 20 }}
-            animate={{ scale: 1, y: 0 }}
-            exit={{ scale: 0.93, y: 20 }}
-            transition={{ duration: 0.28, ease: 'easeOut' }}
-            className="relative w-full max-w-sm rounded-3xl bg-white overflow-hidden"
-            style={{ boxShadow: '0 32px 80px rgba(13,43,94,0.22)' }}
-            onClick={(e) => e.stopPropagation()}
+    <dialog
+      ref={dialog}
+      aria-labelledby="book-title"
+      onCancel={(e) => {
+        e.preventDefault(); // let the exit animation run
+        closeDialog();
+      }}
+      onClick={(e) => e.target === dialog.current && closeDialog()}
+      className="m-0 h-full max-h-none w-full max-w-none bg-transparent p-4 backdrop:bg-transparent open:flex open:items-end open:justify-center sm:open:items-center"
+      style={{ background: 'rgba(20,38,74, calc(var(--scrim, 0) * 0.5))' } as React.CSSProperties}
+    >
+      <div ref={panel} className="glass invisible w-full max-w-md overflow-hidden rounded-2xl bg-white/90 opacity-0">
+        <div className="relative bg-navy px-6 pb-6 pt-6">
+          <span aria-hidden="true" className="absolute -right-12 -top-12 h-36 w-36 rounded-full bg-saffron/30 blur-2xl" />
+          <button
+            type="button"
+            onClick={closeDialog}
+            aria-label="Close"
+            className="press absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-white/12 text-white transition-colors duration-200 hover:bg-white/22"
           >
-              {/* Header bar */}
-              <div
-                className="px-6 pt-6 pb-5 relative"
-                style={{ background: 'var(--navy)' }}
-              >
-                {/* Decorative circle */}
-                <div
-                  className="absolute -top-10 -right-10 w-32 h-32 rounded-full"
-                  style={{ background: 'rgba(230,81,0,0.18)' }}
-                />
+            <Icon name="X" size={16} weight="bold" />
+          </button>
+          <h2 id="book-title" className="relative font-display text-2xl font-semibold text-white">
+            {d.heading}
+          </h2>
+          <p className="relative mt-1 text-sm text-white/65">{d.subtext}</p>
+        </div>
 
-                {/* Close button */}
-                <button
-                  onClick={closeDialog}
-                  className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center transition-colors"
-                  style={{ background: 'rgba(255,255,255,0.12)' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.22)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.12)')}
-                  aria-label="Close dialog"
-                >
-                  <X className="w-4 h-4 text-white" />
-                </button>
+        <div className="space-y-3 p-5">
+          <a
+            href={cfg.contact.phone.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={closeDialog}
+            className="press group flex items-center gap-4 rounded-2xl bg-forest-pale p-4 transition-colors duration-200 hover:bg-[#d8eedf]"
+          >
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#25D366] text-white">
+              <Icon name="WhatsApp" size={26} weight="fill" />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block font-semibold text-forest">{d.whatsapp.label}</span>
+              <span className="block text-sm text-forest/80">{d.whatsapp.description}</span>
+              <span className="mt-1 inline-block rounded-full bg-white/70 px-2 py-0.5 text-[11px] font-semibold text-forest">{d.whatsapp.subtext}</span>
+            </span>
+            <Icon name="ArrowRight" size={18} className="shrink-0 text-forest transition-transform duration-200 group-hover:translate-x-0.5" />
+          </a>
 
-                {/* Title */}
-                <div className="relative z-10">
-                  <p
-                    className="text-xs font-semibold tracking-widest uppercase mb-1"
-                    style={{ color: 'var(--saffron)', fontFamily: 'var(--font-body)' }}
-                  >
-                    Quick Connect
-                  </p>
-                  <h2
-                    className="font-display font-bold text-2xl text-white"
-                  >
-                    {d.heading}
-                  </h2>
-                  <p
-                    className="text-sm mt-1"
-                    style={{ color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-body)' }}
-                  >
-                    {d.subtext}
-                  </p>
-                </div>
-              </div>
+          <a
+            href={cfg.contact.phone.primaryTel}
+            onClick={closeDialog}
+            className="press group flex items-center gap-4 rounded-2xl bg-navy-pale p-4 transition-colors duration-200 hover:bg-[#dfe4f0]"
+          >
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-navy text-white">
+              <Icon name="Phone" size={24} />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block font-semibold text-navy">{d.call.label}</span>
+              <span className="block text-sm text-muted">{cfg.contact.phone.primary}</span>
+              <span className="mt-1 inline-block rounded-full bg-white/70 px-2 py-0.5 text-[11px] font-semibold text-navy">{d.call.subtext}</span>
+            </span>
+            <Icon name="ArrowRight" size={18} className="shrink-0 text-navy transition-transform duration-200 group-hover:translate-x-0.5" />
+          </a>
+        </div>
 
-              {/* Options */}
-              <div className="p-5 space-y-3">
-
-                {/* WhatsApp */}
-                <a
-                  href={cfg.contact.phone.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={closeDialog}
-                  className="group flex items-center gap-4 p-4 rounded-2xl border-2 transition-all duration-200 hover:-translate-y-0.5"
-                  style={{ borderColor: '#25D366', background: '#F0FDF4' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = '#DCFCE7'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = '#F0FDF4'; }}
-                >
-                  {/* Icon */}
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
-                    style={{ background: '#25D366' }}
-                  >
-                    <MessageCircle className="w-6 h-6 text-white" />
-                  </div>
-
-                  {/* Text */}
-                  <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-base" style={{ color: '#166534', fontFamily: 'var(--font-body)' }}>
-                      {d.whatsapp.label}
-                    </p>
-                    <p className="text-sm" style={{ color: '#15803D', fontFamily: 'var(--font-body)' }}>
-                      {d.whatsapp.description}
-                    </p>
-                    <span
-                      className="inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full mt-1"
-                      style={{ background: '#BBF7D0', color: '#166534' }}
-                    >
-                      {d.whatsapp.subtext}
-                    </span>
-                  </div>
-
-                  <ArrowRight className="w-4 h-4 shrink-0 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" style={{ color: '#166534' }} />
-                </a>
-
-                {/* Call */}
-                <a
-                  href={cfg.contact.phone.primaryTel}
-                  onClick={closeDialog}
-                  className="group flex items-center gap-4 p-4 rounded-2xl border-2 transition-all duration-200 hover:-translate-y-0.5"
-                  style={{ borderColor: 'var(--navy)', background: 'var(--navy-pale)' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = '#D5DCF0'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--navy-pale)'; }}
-                >
-                  {/* Icon */}
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
-                    style={{ background: 'var(--navy)' }}
-                  >
-                    <Phone className="w-5 h-5 text-white" />
-                  </div>
-
-                  {/* Text */}
-                  <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-base" style={{ color: 'var(--navy)', fontFamily: 'var(--font-body)' }}>
-                      {d.call.label}
-                    </p>
-                    <p className="text-sm" style={{ color: 'var(--muted)', fontFamily: 'var(--font-body)' }}>
-                      {cfg.contact.phone.primary}
-                    </p>
-                    <span
-                      className="inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full mt-1"
-                      style={{ background: 'var(--navy-pale)', color: 'var(--navy)', border: '1px solid rgba(13,43,94,0.2)' }}
-                    >
-                      {d.call.subtext}
-                    </span>
-                  </div>
-
-                  <ArrowRight className="w-4 h-4 shrink-0 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" style={{ color: 'var(--navy)' }} />
-                </a>
-              </div>
-
-              {/* Footer note */}
-              <p
-                className="text-center text-xs pb-5 px-6"
-                style={{ color: 'var(--muted)', fontFamily: 'var(--font-body)' }}
-              >
-                Our team is available {cfg.hours.short}
-              </p>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        <p className="px-6 pb-5 text-center text-xs text-muted">Our team is available {cfg.hours.short}</p>
+      </div>
+    </dialog>
   );
 }

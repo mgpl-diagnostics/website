@@ -17,21 +17,19 @@ export interface Brand {
 
 export interface LogoAsset {
   src: string;
+  /** Reversed variant for navy surfaces (footer). */
+  darkSrc: string;
+  /** Icon + MGPL/DIAGNOSTICS without tagline, for the navbar. */
+  compactSrc: string;
+  compactWidth: number;
+  compactHeight: number;
   width: number;
   height: number;
   navbarHeight: number;
 }
 
-export interface BannerAsset {
-  src: string;
-  width: number;
-  height: number;
-  alt: string;
-}
-
 export interface Assets {
   logo: LogoAsset;
-  banner: BannerAsset;
 }
 
 export interface Seo {
@@ -169,6 +167,7 @@ export interface Hero {
   headline: HeroHeadline;
   subtext: string;
   ctaPrimary: string;
+  ctaSecondary: string;
   socialProof: HeroSocialProof;
   reportCard: HeroReportCard;
 }

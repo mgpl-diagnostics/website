@@ -1,147 +1,229 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Phone } from 'lucide-react';
-import { siteConfig } from '@/lib/config';
 import { cfg } from '@/lib/config';
+import { gsap, ScrollTrigger, useGSAP, setScrollLocked } from '@/lib/gsap';
 import { useBookTest } from '@/context/BookTestContext';
+import Icon from '@/components/ui/Icon';
+
+const logo = cfg.assets.logo;
+const links = cfg.nav.links;
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const root = useRef<HTMLElement>(null);
+  const bar = useRef<HTMLDivElement>(null);
+  const hoverPill = useRef<HTMLSpanElement>(null);
+  const overlay = useRef<HTMLDivElement>(null);
+  const menuTl = useRef<gsap.core.Timeline | null>(null);
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
   const { openDialog } = useBookTest();
 
-  const navLinks = cfg.nav.links;
+  const { contextSafe } = useGSAP(
+    () => {
+      // Intro: drop in from above
+      gsap.from(bar.current, { yPercent: -140, autoAlpha: 0, duration: 1, delay: 0.2 });
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+      // Hide on scroll down, show on scroll up; denser glass after the hero
+      ScrollTrigger.create({
+        start: 0,
+        end: 'max',
+        onUpdate: (self) => {
+          const y = self.scroll();
+          if (menuTl.current?.isActive() || overlay.current?.dataset.open === 'true') return;
+          gsap.to(bar.current, {
+            yPercent: self.direction === 1 && y > 320 ? -160 : 0,
+            duration: 0.45,
+            ease: 'ui-out',
+            overwrite: 'auto',
+          });
+        },
+      });
+
+      // Active section tracking
+      links.forEach((l) => {
+        const el = document.querySelector(l.href);
+        if (!el) return;
+        ScrollTrigger.create({
+          trigger: el,
+          start: 'top 45%',
+          end: 'bottom 45%',
+          onToggle: (self) => self.isActive && setActive(l.href),
+          onLeaveBack: () => l.href === links[0].href && setActive(null),
+        });
+      });
+
+      // Mobile menu timeline (built once, played/reversed)
+      const items = overlay.current!.querySelectorAll('[data-menu-item]');
+      menuTl.current = gsap
+        .timeline({ paused: true })
+        .set(overlay.current, { autoAlpha: 1 })
+        .fromTo(overlay.current, { clipPath: 'inset(0 0 100% 0 round 0 0 32px 32px)' }, { clipPath: 'inset(0 0 0% 0 round 0 0 0px 0px)', duration: 0.55, ease: 'ui-drawer' })
+        .fromTo(items, { yPercent: 110 }, { yPercent: 0, duration: 0.6, stagger: 0.05 }, '-=0.3');
+    },
+    { scope: root },
+  );
+
+  // Event handlers: wrap in contextSafe at call time so tweens join the GSAP context
+  const moveHoverPill = (target: HTMLElement | null) =>
+    contextSafe(() => {
+      const pill = hoverPill.current;
+      if (!pill) return;
+      if (!target) {
+        gsap.to(pill, { autoAlpha: 0, duration: 0.2 });
+        return;
+      }
+      gsap.to(pill, {
+        x: target.offsetLeft,
+        width: target.offsetWidth,
+        autoAlpha: 1,
+        duration: 0.35,
+        ease: 'ui-out',
+      });
+    })();
+
+  const toggleMenu = (next: boolean) => {
+    setOpen(next);
+    overlay.current!.dataset.open = String(next);
+    setScrollLocked(next);
+    if (next) menuTl.current?.timeScale(1).play();
+    else menuTl.current?.timeScale(1.6).reverse();
+  };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-white/96 backdrop-blur-md shadow-sm'
-          : 'bg-transparent'
-      }`}
-      style={{ borderBottom: scrolled ? '1px solid var(--border)' : 'none' }}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-
-          {/* Logo */}
-          <Link href="/" className="flex items-center group">
+    <header ref={root} className="fixed inset-x-0 top-0 z-40">
+      {/* scroll-edge fade: content dissolves before it slides under the floating bar */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-linear-to-b from-cream via-cream/85 to-transparent sm:h-32" />
+      <div className="px-3 pt-3 sm:px-6 sm:pt-5">
+        <div
+          ref={bar}
+          className="glass relative mx-auto flex max-w-6xl items-center justify-between gap-4 rounded-full py-2 pl-5 pr-2"
+        >
+          <a href="#top" aria-label={`${cfg.brand.name} home`} className="relative z-50 shrink-0">
             <Image
-              src={siteConfig.logo.src}
-              alt={siteConfig.name}
-              width={siteConfig.logo.width}
-              height={siteConfig.logo.height}
+              src={logo.compactSrc}
+              alt={cfg.brand.name}
+              width={logo.compactWidth}
+              height={logo.compactHeight}
               priority
-              className="object-contain w-auto"
-              style={{ height: `${siteConfig.logo.navbarHeight}px` }}
+              unoptimized
+              className="h-9 w-auto sm:h-10"
             />
-          </Link>
+          </a>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-7">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium transition-colors duration-200 hover:opacity-80"
-                style={{ color: 'var(--charcoal)', fontFamily: 'var(--font-body)' }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--saffron)')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--charcoal)')}
-              >
-                {link.label}
-              </Link>
-            ))}
+          {/* Desktop links with travelling hover pill */}
+          <nav aria-label="Primary" className="relative hidden lg:block" onMouseLeave={() => moveHoverPill(null)}>
+            <span ref={hoverPill} aria-hidden="true" className="invisible absolute left-0 top-0 h-full rounded-full bg-navy-pale opacity-0" />
+            <ul className="relative flex items-center">
+              {links.map((l) => (
+                <li key={l.href}>
+                  <a
+                    href={l.href}
+                    onMouseEnter={(e) => moveHoverPill(e.currentTarget)}
+                    onFocus={(e) => moveHoverPill(e.currentTarget)}
+                    aria-current={active === l.href ? 'true' : undefined}
+                    className="relative block rounded-full px-4 py-2 text-sm font-medium text-charcoal/80 transition-colors duration-200 hover:text-navy aria-[current]:text-navy"
+                  >
+                    {l.label}
+                    <span
+                      aria-hidden="true"
+                      className={`absolute bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-saffron transition-[opacity,transform] duration-300 ease-out-strong ${
+                        active === l.href ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
+                      }`}
+                    />
+                  </a>
+                </li>
+              ))}
+            </ul>
           </nav>
 
-          {/* Desktop CTAs */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="flex items-center gap-2">
             <a
-              href={siteConfig.phone.primaryTel}
-              className="flex items-center gap-1.5 text-sm font-medium transition-colors"
-              style={{ color: 'var(--navy)', fontFamily: 'var(--font-body)' }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--saffron)')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--navy)')}
+              href={cfg.contact.phone.primaryTel}
+              aria-label={`Call ${cfg.contact.phone.primary}`}
+              className="press hidden h-11 items-center gap-2 rounded-full px-4 text-sm font-semibold text-navy transition-colors duration-200 hover:bg-navy-pale md:flex"
             >
-              <Phone className="w-4 h-4" />
-              <span>{siteConfig.phone.primary}</span>
+              <Icon name="Phone" size={18} />
+              <span className="font-mono text-[13px]">{cfg.contact.phone.primary}</span>
             </a>
             <button
+              type="button"
               onClick={openDialog}
-              className="px-5 py-2.5 text-white text-sm font-semibold rounded-full shadow-md hover:shadow-lg hover:-translate-y-px transition-all duration-200"
-              style={{ background: 'var(--saffron)', fontFamily: 'var(--font-body)' }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--saffron-light)')}
-              onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--saffron)')}
+              className="press group hidden items-center gap-2 rounded-full bg-saffron py-1.5 pl-5 pr-1.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-saffron-deep sm:inline-flex"
+            >
+              {cfg.nav.ctaLabel}
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/15 transition-transform duration-200 ease-out-strong group-hover:translate-x-0.5 group-hover:-translate-y-px">
+                <Icon name="ArrowUpRight" size={15} weight="bold" />
+              </span>
+            </button>
+
+            {/* Hamburger → X morph */}
+            <button
+              type="button"
+              onClick={() => toggleMenu(!open)}
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              className="press relative z-50 flex h-11 w-11 items-center justify-center rounded-full bg-navy text-white lg:hidden"
+            >
+              <span className="relative block h-3 w-5">
+                <span className={`absolute left-0 h-[1.5px] w-5 rounded bg-current transition-transform duration-300 ease-out-strong ${open ? 'top-1/2 rotate-45' : 'top-0'}`} />
+                <span className={`absolute left-0 h-[1.5px] w-5 rounded bg-current transition-transform duration-300 ease-out-strong ${open ? 'top-1/2 -rotate-45' : 'top-full'}`} />
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile overlay */}
+      <div
+        ref={overlay}
+        id="mobile-menu"
+        data-open="false"
+        className="invisible fixed inset-0 z-40 flex flex-col bg-cream/95 px-6 pb-10 pt-28 opacity-0 backdrop-blur-2xl lg:hidden"
+      >
+        <nav aria-label="Mobile">
+          <ul className="space-y-1">
+            {links.map((l, i) => (
+              <li key={l.href} className="overflow-hidden">
+                <a
+                  data-menu-item
+                  href={l.href}
+                  onClick={() => toggleMenu(false)}
+                  className="flex items-baseline gap-4 py-2 font-display text-4xl font-medium text-navy"
+                >
+                  <span className="font-mono text-xs text-saffron">0{i + 1}</span>
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div className="mt-auto space-y-3 overflow-hidden">
+          <div data-menu-item>
+            <button
+              type="button"
+              onClick={() => {
+                toggleMenu(false);
+                openDialog();
+              }}
+              className="press w-full rounded-full bg-saffron py-4 text-base font-semibold text-white"
             >
               {cfg.nav.ctaLabel}
             </button>
           </div>
-
-          {/* Mobile Menu Toggle */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="lg:hidden p-2 rounded-lg"
-            style={{ color: 'var(--navy)' }}
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={menuOpen}
-          >
-            {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          <div data-menu-item>
+            <a
+              href={cfg.contact.phone.primaryTel}
+              className="flex items-center justify-center gap-2 rounded-full border border-line py-4 font-mono text-sm font-semibold text-navy"
+            >
+              <Icon name="Phone" size={18} />
+              {cfg.contact.phone.primary}
+            </a>
+          </div>
         </div>
       </div>
-
-      {/* Mobile Drawer */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="lg:hidden overflow-hidden bg-white"
-            style={{ borderTop: '1px solid var(--border)' }}
-          >
-            <nav className="px-4 py-4 space-y-1">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="block px-3 py-3 rounded-lg text-sm font-medium transition-colors"
-                  style={{ color: 'var(--charcoal)', fontFamily: 'var(--font-body)' }}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <div className="pt-2 pb-1 border-t" style={{ borderColor: 'var(--border)' }}>
-                <button
-                  onClick={() => { setMenuOpen(false); openDialog(); }}
-                  className="block w-full text-center py-3 text-white font-semibold rounded-full mt-2 text-sm"
-                  style={{ background: 'var(--saffron)', fontFamily: 'var(--font-body)' }}
-                >
-                  {cfg.nav.ctaLabel}
-                </button>
-                <a
-                  href={siteConfig.phone.primaryTel}
-                  className="block text-center py-2 text-sm font-medium mt-2"
-                  style={{ color: 'var(--navy)' }}
-                >
-                  {siteConfig.phone.primary}
-                </a>
-              </div>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </header>
   );
 }
