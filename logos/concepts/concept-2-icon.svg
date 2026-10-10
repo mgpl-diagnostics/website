@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="16 76 368 368" role="img" aria-label="MGPL — Gayatri Sunrise icon">
+<title>MGPL — Gayatri Sunrise icon</title>
+<g id="icon">
+  <g>
+    <path d="M87.3 253.3 L59.6 241.8" stroke="#E9A23B" stroke-width="18" stroke-linecap="round"/>
+    <path d="M113.7 213.7 L92.5 192.5" stroke="#E9A23B" stroke-width="18" stroke-linecap="round"/>
+    <path d="M153.3 187.3 L141.8 159.6" stroke="#E9A23B" stroke-width="18" stroke-linecap="round"/>
+    <path d="M200.0 178.0 L200.0 148.0" stroke="#E9A23B" stroke-width="18" stroke-linecap="round"/>
+    <path d="M246.7 187.3 L258.2 159.6" stroke="#E9A23B" stroke-width="18" stroke-linecap="round"/>
+    <path d="M286.3 213.7 L307.5 192.5" stroke="#E9A23B" stroke-width="18" stroke-linecap="round"/>
+    <path d="M312.7 253.3 L340.4 241.8" stroke="#E9A23B" stroke-width="18" stroke-linecap="round"/>
+  </g>
+  <path d="M96 300 a104 104 0 0 1 208 0Z" fill="#C2410C"/>
+  <rect x="40" y="300" width="320" height="22" rx="11" fill="#14264A"/>
+  <rect x="172" y="132" width="56" height="236" rx="28" fill="#14264A"/>
+  <rect x="158" y="124" width="84" height="22" rx="11" fill="#14264A"/>
+  <rect x="186" y="262" width="28" height="92" rx="14" fill="#E9A23B"/>
+</g>
+</svg>

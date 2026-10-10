@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 512" role="img" aria-label="MGPL Diagnostics — Lotus Drop">
+<title>MGPL Diagnostics — Lotus Drop</title>
+<g id="icon">
+  <path d="M200 92 C200 92 84 236 84 316 a116 116 0 0 0 232 0 C316 236 200 92 200 92Z" fill="#14264A"/>
+  <path d="M200 252 C176 286 176 334 200 368 C224 334 224 286 200 252Z" fill="#C2410C"/>
+  <path d="M200 368 C164 364 132 338 124 300 C158 302 190 326 200 368Z" fill="#C2410C"/>
+  <path d="M200 368 C236 364 268 338 276 300 C242 302 210 326 200 368Z" fill="#C2410C"/>
+  <circle cx="200" cy="214" r="17" fill="#E9A23B"/>
+</g>
+<g id="wordmark">
+  <text x="392" y="292" font-family="Georgia, 'Times New Roman', serif" font-size="176" font-weight="700" letter-spacing="2" fill="#14264A">M<tspan fill="#C2410C">G</tspan>PL</text>
+  <text x="398" y="358" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="38" font-weight="600" letter-spacing="31" fill="#C2410C">DIAGNOSTICS</text>
+  <text x="398" y="404" font-family="Georgia, 'Times New Roman', serif" font-size="25" font-style="italic" letter-spacing="1.5" fill="#675F54">Maa Gayatri Path Lab</text>
+</g>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 512" role="img" aria-label="MGPL Diagnostics — Pulse Monogram (reversed)">
+<title>MGPL Diagnostics — Pulse Monogram (reversed)</title>
+<rect width="1024" height="512" fill="#14264A"/>
+<g id="icon">
+  <rect x="64" y="120" width="272" height="272" rx="72" fill="#C2410C"/>
+  <path d="M96 304 H132 L156 196 L200 292 L244 196 L268 304 H304" fill="none" stroke="#FFFDF9" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="290" cy="172" r="18" fill="#E9A23B"/>
+</g>
+<g id="wordmark">
+  <text x="392" y="292" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="172" font-weight="700" letter-spacing="-2" fill="#FAF6EF">M<tspan fill="#E9A23B">G</tspan>PL</text>
+  <text x="398" y="356" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="38" font-weight="600" letter-spacing="22" fill="#E9A23B">DIAGNOSTICS</text>
+  <text x="398" y="402" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" font-weight="500" letter-spacing="6" fill="#B9C2D6">MAA GAYATRI PATH LAB</text>
+</g>
+</svg>
