@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "llms": "node scripts/llms-full.mjs \"MGPL Diagnostics website\" README.md AGENTS.md PROMPT.md llms.txt package.json app components context lib eslint.config.mjs next.config.ts postcss.config.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

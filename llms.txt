@@ -1,0 +1,23 @@
+# MGPL Diagnostics website
+
+> Public website of Maa Gayatri Path Lab (Arang, Raipur): a Next.js (App Router) single-page site with a GSAP-animated "living lab" 3D scene (Three.js), test catalogue with prices, home sample collection, report download, doctors, testimonials, FAQ and a book-a-test dialog. All copy, prices and contact details live in JSON files under lib/config.
+
+Key facts for agents:
+- This Next.js version has breaking changes: read node_modules/next/dist/docs/ before writing code (AGENTS.md).
+- Edit content in lib/config/*.json (catalogue.json = tests and prices, contact.json, doctors.json, faq.json, …), not in components.
+- 3D models in public/models are CC-BY / CC0; credits are in lib/model-credits.ts and must stay rendered in the footer.
+- .agents/ and .claude/ hold third-party agent skills (see skills-lock.json); they are tooling, not site code.
+
+## Source
+
+- [app/page.tsx](app/page.tsx): page composition
+- [components/](components/): sections (Hero, ServicesGrid, TestCategories, HomeCollection, ReportDownload, DoctorTrust, Testimonials, FAQ, Footer, BookTestDialog)
+- [components/three/](components/three/): 3D scene engine, materials, objects
+- [lib/config/](lib/config/): site content as JSON
+- [lib/model-credits.ts](lib/model-credits.ts): 3D model licences
+
+## Docs
+
+- [AGENTS.md](AGENTS.md): agent rules
+- [PROMPT.md](PROMPT.md): original design brief
+- [llms-full.txt](llms-full.txt): every doc and source file in one document
