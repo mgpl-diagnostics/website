@@ -46,6 +46,9 @@ export default function Hero() {
         <div className="station-grid w-full">
           <div data-side="left" className="max-w-3xl py-6">
             <h1 data-hero data-split className="font-display text-[2.5rem] font-semibold leading-[1.02] text-navy sm:text-[3.4rem] xl:text-[4rem]">
+              <span className="mb-5 block font-sans text-sm font-semibold uppercase tracking-[0.14em] text-saffron sm:text-[15px]">
+                {h.eyebrow}
+              </span>
               <span className="sm:whitespace-nowrap">
                 {h.headline.line1} {h.headline.line2}
               </span>

@@ -33,10 +33,16 @@ export interface Assets {
 }
 
 export interface Seo {
+  /** Canonical origin, no trailing slash. NEXT_PUBLIC_SITE_URL overrides it at build time. */
+  siteUrl: string;
   title: string;
   description: string;
   keywords: string;
   locale: string;
+  /** Short line for link previews (Open Graph / social cards). */
+  shareTitle: string;
+  /** Places the lab serves, used in structured data (areaServed). */
+  areaServed: string[];
 }
 
 export interface BrandConfig {
@@ -79,9 +85,20 @@ export interface Maps {
   embedSrc: string;
 }
 
+/** One opening-hours rule for structured data, e.g. every day 07:00–20:00. */
+export interface OpeningHoursRule {
+  /** schema.org day names: Monday … Sunday. */
+  days: string[];
+  /** 24-hour "HH:MM". */
+  opens: string;
+  closes: string;
+}
+
 export interface Hours {
   display: string;
   short: string;
+  /** Machine-readable version of `display`; keep the two in step. */
+  rules: OpeningHoursRule[];
 }
 
 export interface Social {
@@ -164,6 +181,8 @@ export interface HeroReportCard {
 
 export interface Hero {
   badge: string;
+  /** Small line printed inside the h1 above the slogan: what and where (search engines read it first). */
+  eyebrow: string;
   headline: HeroHeadline;
   subtext: string;
   ctaPrimary: string;

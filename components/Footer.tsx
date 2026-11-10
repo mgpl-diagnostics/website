@@ -9,7 +9,7 @@ const logo = cfg.assets.logo;
 const CONTACT = [
   { icon: 'Phone', text: cfg.contact.phone.primary, href: cfg.contact.phone.primaryTel },
   { icon: 'Mail', text: cfg.contact.email.info, href: `mailto:${cfg.contact.email.info}` },
-  { icon: 'MapPin', text: `${cfg.address.city}, ${cfg.address.state}`, href: cfg.maps.shareLink },
+  { icon: 'MapPin', text: cfg.address.full, href: cfg.maps.shareLink },
   { icon: 'Clock', text: cfg.hours.display },
 ] as const;
 
