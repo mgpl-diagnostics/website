@@ -4,6 +4,7 @@ import { Outfit, Geist, Geist_Mono } from "next/font/google";
 import Providers from "@/components/Providers";
 import "./globals.css";
 import { cfg } from "@/lib/config";
+import { jsonLdString, siteUrl } from "@/lib/seo";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -24,16 +25,32 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: cfg.seo.title,
+  metadataBase: new URL(siteUrl),
+  title: { default: cfg.seo.title, template: `%s | ${cfg.brand.name}` },
   description: cfg.seo.description,
   keywords: cfg.seo.keywords,
+  applicationName: cfg.brand.name,
+  alternates: { canonical: "/" },
   openGraph: {
-    title: cfg.brand.name,
-    description: cfg.brand.description,
     type: "website",
+    url: "/",
+    siteName: cfg.brand.fullName,
+    title: cfg.seo.shareTitle,
+    description: cfg.seo.description,
     locale: cfg.seo.locale,
   },
-  robots: { index: true, follow: true },
+  twitter: {
+    card: "summary_large_image",
+    title: cfg.seo.shareTitle,
+    description: cfg.seo.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
+  formatDetection: { telephone: false },
+  category: "health",
 };
 
 export const viewport: Viewport = {
@@ -56,6 +73,11 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="antialiased">
+        <script
+          type="application/ld+json"
+          // Built from lib/config at build time; `<` is escaped in jsonLdString.
+          dangerouslySetInnerHTML={{ __html: jsonLdString() }}
+        />
         <Script id="motion-pref" strategy="beforeInteractive">
           {motionPref}
         </Script>

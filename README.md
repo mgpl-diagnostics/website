@@ -40,6 +40,20 @@ All copy, prices and contact details live in **`lib/config/*.json`**:
 
 `lib/config.ts` loads and types them (`lib/types.ts`). Components only read from it.
 
+## Search (SEO)
+
+- **Metadata** (`app/layout.tsx`): title, description and share text come from `brand.json` → `seo`;
+  canonical URL, Open Graph and X cards use `seo.siteUrl` (override with `NEXT_PUBLIC_SITE_URL`).
+- **Structured data** (`lib/seo.ts`): one JSON-LD graph, `WebSite` + `DiagnosticLab`/`MedicalBusiness`
+  with the address, phone, hours (`contact.json` → `hours.rules`, keep it in step with `hours.display`),
+  areas served and every catalogue test. It only repeats what the page prints: no ratings or reviews
+  unless they are real Google reviews, no doctors who do not work at the lab.
+- **Generated files**: `app/robots.ts` (everything allowed, AI search crawlers included),
+  `app/sitemap.ts` (add each new public route), `app/manifest.ts`, `app/opengraph-image.tsx`
+  (1200×630 link preview).
+- The h1 starts with `hero.json` → `eyebrow` ("Pathology lab in Arang, Raipur"): keep the city in it.
+- Keep the name, address and phone identical to the Google Business Profile.
+
 ## The 3D scene
 
 `components/three/` holds the scene: `engine.ts` (renderer and loop), `objects.ts` (lab objects) and
@@ -64,7 +78,8 @@ npm run llms     # regenerate llms-full.txt after changes
 ## Project map
 
 ```
-app/              layout, page, global styles, icons
+app/              layout, page, global styles, icons, robots, sitemap, manifest, share image
+lib/seo.ts        canonical URL and JSON-LD
 components/       page sections, motion helpers (SmoothScroll, Tilt3D), ui (BookButton, Icon, SectionHeading)
 components/three/ the 3D living-lab scene
 context/          BookTestContext (booking dialog state)

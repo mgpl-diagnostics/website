@@ -1,11 +1,11 @@
 {
   "contact": {
     "phone": {
-      "primary": "+91 98765 43210",
-      "primaryTel": "tel:+919876543210",
+      "primary": "+91 93406 38661",
+      "primaryTel": "tel:+919340638661",
       "secondary": "+91 98765 43211",
       "secondaryTel": "tel:+919876543211",
-      "whatsapp": "https://wa.me/919876543210"
+      "whatsapp": "https://wa.me/919340638661"
     },
     "email": {
       "info": "info@mgpldiagnostics.in",
@@ -14,22 +14,29 @@
   },
 
   "address": {
-    "line1": "123 Medical Colony",
-    "line2": "Near Civil Hospital",
-    "city": "Raipur",
+    "line1": "In front of Police Station",
+    "line2": "Arang",
+    "city": "Arang",
     "state": "Chhattisgarh",
-    "pin": "492001",
-    "full": "123 Medical Colony, Near Civil Hospital, Raipur, CG 492001"
+    "pin": "493441",
+    "full": "In front of Police Station, Arang, Raipur, Chhattisgarh 493441"
   },
 
   "maps": {
-    "shareLink": "https://maps.google.com/?q=MGPL+Diagnostics+Raipur",
+    "shareLink": "https://maps.google.com/?q=Maa+Gayatri+Path+Lab+Arang+Raipur",
     "embedSrc": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3606!2d81.6!3d21.2!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDEyJzAwLjAiTiA4McKwMzYnMDAuMCJF!5e0!3m2!1sen!2sin!4v1234567890"
   },
 
   "hours": {
     "display": "Mon–Sun: 7:00 AM – 8:00 PM",
-    "short": "7 AM – 8 PM, All Days"
+    "short": "7 AM – 8 PM, All Days",
+    "rules": [
+      {
+        "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "opens": "07:00",
+        "closes": "20:00"
+      }
+    ]
   },
 
   "social": {
