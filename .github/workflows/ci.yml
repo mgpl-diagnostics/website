@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  # Same job id as the other repos ("ci"), so it can become a required check on main later
+  # (mgpl-diagnostics/.github scripts/protect-repos.mjs).
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: mgpl-diagnostics/.github/actions/node@claude/project-thread-dsh6g4
+        with:
+          install: npm ci --no-audit --no-fund
+      # Next.js's incremental build cache (compiled modules survive between runs)
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .next/cache
+          key: nextjs-${{ runner.os }}-${{ hashFiles('package.json', 'package-lock.json') }}-${{ hashFiles('**/*.ts', '**/*.tsx', '**/*.css', '!node_modules/**', '!.next/**') }}
+          restore-keys: nextjs-${{ runner.os }}-${{ hashFiles('package.json', 'package-lock.json') }}-
+      # `npm run lint` is not here yet: eslint reports 78 errors on main today. Add it once they are fixed.
+      - name: Build (includes the TypeScript check)
+        run: npm run build
+      - name: llms-full.txt is up to date (run `npm run llms` and commit if this fails)
+        run: npm run llms && git diff --exit-code -- llms-full.txt
