@@ -1970,13 +1970,21 @@ export default function ReportDownload() {
   const [touched, setTouched] = useState(false);
   const [sent, setSent] = useState(false);
 
-  const idOk = reportId.trim().length >= 4;
+  const id = reportId.trim();
+  // receipt ids are short codes like MG-2024-08821; anything else is refused before it goes into the message
+  const idOk = /^[A-Za-z0-9][A-Za-z0-9/-]{3,31}$/.test(id);
   const mobileOk = /^[6-9]\d{9}$/.test(mobile);
 
+  // There is no online report portal yet, so the form never pretends to send an OTP. It opens a WhatsApp
+  // chat with the lab, prefilled with the ID and number; the lab checks them against the booking before
+  // it shares any report.
   const onSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setTouched(true);
-    if (idOk && mobileOk) setSent(true);
+    if (!idOk || !mobileOk) return;
+    const text = `Hello, please send my report. Report ID: ${id}. Registered mobile: +91 ${mobile}.`;
+    window.open(`${cfg.contact.phone.whatsapp}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+    setSent(true);
   };
 
   return (
@@ -2036,12 +2044,12 @@ export default function ReportDownload() {
               {sent ? (
                 <div role="status" className="py-6 text-center">
                   <Icon name="CheckCircle2" size={40} weight="fill" className="mx-auto text-[#5FD39B]" />
-                  <p className="mt-3 font-display text-xl font-semibold text-white">OTP sent</p>
+                  <p className="mt-3 font-display text-xl font-semibold text-white">Request ready on WhatsApp</p>
                   <p className="mt-1 text-sm text-white/65">
-                    Check the SMS on +91 {mobile} to open report {reportId}.
+                    Send the message we filled in for report {id}. We check it against +91 {mobile} and reply with your report.
                   </p>
                   <button type="button" onClick={() => setSent(false)} className="mt-5 text-sm font-semibold text-amber underline">
-                    Use a different number
+                    Request another report
                   </button>
                 </div>
               ) : (
@@ -2075,7 +2083,7 @@ export default function ReportDownload() {
                   </button>
                   <p className="flex items-start gap-2 text-xs leading-relaxed text-white/55">
                     <Icon name="Lock" size={14} className="mt-0.5 shrink-0" />
-                    We send a one-time password to your registered mobile. Only you can open the report.
+                    We share a report only after matching the ID with the mobile number on your booking.
                   </p>
                 </form>
               )}
@@ -5563,8 +5571,49 @@ Key facts for agents:
 ```ts
 import type { NextConfig } from "next";
 
+const dev = process.env.NODE_ENV === "development";
+
+/**
+ * Content Security Policy. The site is static: scripts, styles, fonts and 3D models all come from
+ * this origin. 'unsafe-inline' for scripts is needed by Next.js's inline bootstrap and the
+ * motion-pref script in app/layout.tsx (a nonce would make every page dynamic); the policy still
+ * blocks scripts from any other origin, plugins, <base> hijacking, framing and off-site forms.
+ * GLTFLoader turns embedded textures into blob: URLs, hence blob:/data: for images and fetches.
+ * Dev mode (React Refresh) needs 'unsafe-eval' and a websocket.
+ */
+const csp = [
+  "default-src 'self'",
+  `script-src 'self' 'unsafe-inline'${dev ? " 'unsafe-eval'" : ""}`,
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob:",
+  "font-src 'self' data:",
+  `connect-src 'self' data: blob:${dev ? " ws: wss:" : ""}`,
+  "worker-src 'self' blob:",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+  ...(dev ? [] : ["upgrade-insecure-requests"]),
+].join("; ");
+
 const nextConfig: NextConfig = {
-  /* config options here */
+  poweredByHeader: false,
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "Content-Security-Policy", value: csp },
+          { key: "Strict-Transport-Security", value: "max-age=31536000" },
+          { key: "X-Frame-Options", value: "DENY" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=(), usb=()" },
+          { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
@@ -5591,7 +5640,7 @@ export default nextConfig;
     "@gsap/react": "^2.1.2",
     "@phosphor-icons/react": "^2.1.10",
     "gsap": "^3.15.0",
-    "next": "16.2.6",
+    "next": "16.4.3",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "three": "^0.186.1"
@@ -5603,7 +5652,7 @@ export default nextConfig;
     "@types/react-dom": "^19",
     "@types/three": "^0.186.0",
     "eslint": "^9",
-    "eslint-config-next": "16.2.6",
+    "eslint-config-next": "16.4.3",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
