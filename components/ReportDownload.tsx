@@ -14,13 +14,21 @@ export default function ReportDownload() {
   const [touched, setTouched] = useState(false);
   const [sent, setSent] = useState(false);
 
-  const idOk = reportId.trim().length >= 4;
+  const id = reportId.trim();
+  // receipt ids are short codes like MG-2024-08821; anything else is refused before it goes into the message
+  const idOk = /^[A-Za-z0-9][A-Za-z0-9/-]{3,31}$/.test(id);
   const mobileOk = /^[6-9]\d{9}$/.test(mobile);
 
+  // There is no online report portal yet, so the form never pretends to send an OTP. It opens a WhatsApp
+  // chat with the lab, prefilled with the ID and number; the lab checks them against the booking before
+  // it shares any report.
   const onSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setTouched(true);
-    if (idOk && mobileOk) setSent(true);
+    if (!idOk || !mobileOk) return;
+    const text = `Hello, please send my report. Report ID: ${id}. Registered mobile: +91 ${mobile}.`;
+    window.open(`${cfg.contact.phone.whatsapp}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+    setSent(true);
   };
 
   return (
@@ -80,12 +88,12 @@ export default function ReportDownload() {
               {sent ? (
                 <div role="status" className="py-6 text-center">
                   <Icon name="CheckCircle2" size={40} weight="fill" className="mx-auto text-[#5FD39B]" />
-                  <p className="mt-3 font-display text-xl font-semibold text-white">OTP sent</p>
+                  <p className="mt-3 font-display text-xl font-semibold text-white">Request ready on WhatsApp</p>
                   <p className="mt-1 text-sm text-white/65">
-                    Check the SMS on +91 {mobile} to open report {reportId}.
+                    Send the message we filled in for report {id}. We check it against +91 {mobile} and reply with your report.
                   </p>
                   <button type="button" onClick={() => setSent(false)} className="mt-5 text-sm font-semibold text-amber underline">
-                    Use a different number
+                    Request another report
                   </button>
                 </div>
               ) : (
@@ -119,7 +127,7 @@ export default function ReportDownload() {
                   </button>
                   <p className="flex items-start gap-2 text-xs leading-relaxed text-white/55">
                     <Icon name="Lock" size={14} className="mt-0.5 shrink-0" />
-                    We send a one-time password to your registered mobile. Only you can open the report.
+                    We share a report only after matching the ID with the mobile number on your booking.
                   </p>
                 </form>
               )}
